@@ -4,9 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-image: url("/images/background2.png");
+.globalBackground {
+    background-image: url("/images/background.jpg");
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-position: center;
     background-size: cover;
+}
+
+.devBorder {
+    /*@apply*/
+    /*    border-2*/
+    /*    border-black*/
 }

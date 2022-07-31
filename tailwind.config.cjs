@@ -3,6 +3,9 @@ const config = {
 
   theme: {
     extend: {
+      colors: {
+        'poke-dex-red': '#cc2d3a'
+      }
     },
   },
 
