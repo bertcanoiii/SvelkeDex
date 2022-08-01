@@ -1,5 +1,7 @@
 <script>
 
+    import NameSearch from "./NameSearch.svelte";
+
     let selected = '';
 
     function handleTypeClicked(){
@@ -34,12 +36,12 @@
 <!--    Top left button 3-->
     <div class="absolute top-6 left-[148px] w-10 h-10 bg-yellow-500 border-4 border-black rounded-full drop-shadow-2xl hover:-translate-y-0.5" on:click={handleClickButton}></div>
 <!--    Pokedex Screen-->
-    <div class="flex flex-col sm:flex-row mt-[90px] justify-center items-center bg-indigo-200 rounded-2xl h-80 border-black border-8 w-full">
+    <div class="flex flex-col sm:flex-row mt-[90px] justify-center bg-indigo-200 rounded-2xl h-80 border-black border-8 w-full">
         <h1>
             {#if !selected}
-                Choose how to search
+                <NameSearch/>
             {:else}
-                You chose to search by {selected}
+                <NameSearch/>
             {/if}
         </h1>
     </div>

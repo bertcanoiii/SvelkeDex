@@ -9,13 +9,12 @@
 
 <main>
     <div class="globalBackground">
-        <div class="w-screen h-screen backdrop-blur-[1px]">
+        <div class="w-screen h-screen backdrop-blur-[3px]">
             <div class="container max-w-4xl mx-auto">
                 <section id="hero">
                     <div class="container max-w-2xl mx-auto devBorder">
                         <nav class="flex flex-col items-center p-10">
                             <img src="images/pokeapi_256.png" alt="pokemon logo">
-
                         </nav>
                     </div>
                 </section>
