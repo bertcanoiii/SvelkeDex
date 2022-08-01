@@ -1,11 +1,12 @@
 <script>
-
-import Pokedex from "./components/Pokedex.svelte";
+    import routes from './routes.js'
+    import Router from 'svelte-spa-router'
+    import Navbar from './components/Navbar.svelte'
 </script>
-
+<Navbar/>
 <main>
-    <h1>test</h1>
-    <Pokedex/>
+
+    <Router {routes}/>
 </main>
 
 <style>
