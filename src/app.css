@@ -11,8 +11,8 @@
     background-size: cover;
 }
 
-.devBorder {
-    /*@apply*/
-    /*    border-2*/
-    /*    border-black*/
-}
+/*.devBorder {*/
+/*    @apply*/
+/*        border-2*/
+/*        border-black*/
+/*}*/
