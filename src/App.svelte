@@ -19,10 +19,12 @@
     });
 </script>
 
-<main class="flex flex-row space-x-10">
-    <Navbar/>
-    <div class="py-10">
-        <Router {routes}/>
+<main class="devBorder">
+    <div class="flex flex-row">
+        <Navbar/>
+        <div class="py-10">
+            <Router {routes}/>
+        </div>
     </div>
 </main>
 

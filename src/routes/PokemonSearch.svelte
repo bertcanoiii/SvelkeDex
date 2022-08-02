@@ -21,18 +21,24 @@
 
 </script>
 
-<div class="devBorder max-w-2xl">
-    <h1 class="text-2xl font-bold">This is the Pokemon page</h1>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 pt-10 duration-500">
+<div class="flex flex-col px-5 devBorder">
+    <h1 class="text-4xl text-slate-700 text-center sm:text-start font-bold drop-shadow-xl duration-200">This is the Pokemon page</h1>
+<!--Pokemon Card Container-->
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 justify-items-center pt-10 duration-1000">
+<!--    Loop for each pokemon card-->
     {#each $pokemonList as pokemon}
-        <div class="flex flex-col items-center bg-blue-500 border-2 border-blue-900 rounded-xl py-2 space-y-2">
-            <div class="flex flex-col items-center">
-                <p class="font-bold">{pokemon.name}</p>
-            </div>
-            <div class="flex flex-row justify-center w-full items-center space-x-2 px-2">
-                <p>ID:{pokemon.url.substring(34, pokemon.url.length - 1)}</p>
-                <img class="flex shrink bg-blue-200 border-2 border-blue-900 rounded-xl" src="images/main_sprites/{pokemon.url.substring(34, pokemon.url.length - 1)}.png" alt="poke-pic">
+        <!--Pokemon Cards-->
+        <div class="flex">
+            <div class="flex flex-col items-center bg-blue-100 rounded-xl py-2 space-y-2 drop-shadow-xl">
+    <!--            Pokemon Card Top-->
+                <div class="flex flex-col items-center">
+                    <h3 class="text-lg sm:text-xl md:text-2xl text font-bold text-slate-700 duration-500">{pokemon.name}</h3>
+                </div>
+    <!--            Pokemon Card Body-->
+                <div class="flex flex-row justify-center items-center space-x-2 px-2">
+<!--                    <p class="text-slate-700 font-bold">ID:{pokemon.url.substring(34, pokemon.url.length - 1)}</p>-->
+                    <img class="flex shrink bg-blue-200 border-2 border-blue-300 rounded-xl drop-shadow-sm" src="images/main_sprites/{pokemon.url.substring(34, pokemon.url.length - 1)}.png" alt="poke-pic">
+                </div>
             </div>
         </div>
     {/each}
