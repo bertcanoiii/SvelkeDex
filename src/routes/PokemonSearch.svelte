@@ -4,53 +4,36 @@
 
     const pokemonInitialData = pokemonData;
     let currentPage = 1;
+    let startPageNumber = 0;
     let pokemonPerPage = 24;
     let allPokemon = pokemonInitialData;
     let totalPokemon = pokemonInitialData.length;
-    let numberOfPages = 5;
-    let pageNumbers = [1, 2, 3, 4, 5];
+    let numberOfPages = 7;
+    let pageNumbers = [1, 2, 3, 4, 5, 6, 7];
+    $: totalPages = Math.ceil(totalPokemon/pokemonPerPage);
+    $: finalPagesStartPage = totalPages - numberOfPages + 1;
     $: pokeRangeHigh = currentPage * pokemonPerPage;
     $: pokeRangeLow = pokeRangeHigh - pokemonPerPage;
 
     const setCurrentPage = newPage => {
-        currentPage = newPage;
-    }
-
-    const setPageNumbersUsingPrevious = newPage => {
-        pageNumbers = [];
-        let startPage = 0;
-        if (newPage <= 3) {
-            startPage = 1;
+        if (newPage > totalPages) {
+            currentPage = totalPages;
+        } else if (newPage < 1) {
+            currentPage = 1;
         } else {
-            startPage = (newPage - Math.floor(numberOfPages/2) + 1);
+            currentPage = newPage;
         }
-        for (let i = 0; i < numberOfPages; i++){
-            pageNumbers.push(startPage + i);
-        }
-    }
 
-    const setPageNumbersUsingNext = newPage => {
-        pageNumbers = [];
-        let startPage = (newPage - Math.floor(numberOfPages/2) - 1);
-        for (let i = 0; i < numberOfPages; i++){
-            if (newPage <= 3) {
-                pageNumbers.push(i + 1);
-            } else {
-                pageNumbers.push(startPage + i);
-            }
-        }
-    }
-
-    const setPageNumbersUsingNumbers = newPage => {
-        pageNumbers = [];
-        let startPage = 0;
-        if (newPage <= 3) {
-            startPage = 1;
+        if (newPage <= 4) {
+            startPageNumber = 1;
+        } else if (newPage > finalPagesStartPage) {
+            startPageNumber = finalPagesStartPage;
         } else {
-            startPage = (newPage - Math.floor(numberOfPages/2));
+            startPageNumber = (newPage - Math.floor(numberOfPages/2));
         }
-        for (let i = 0; i < numberOfPages; i++){
-            pageNumbers.push(startPage + i);
+        pageNumbers = [];
+        for (let i = 0; i < numberOfPages; i++) {
+            pageNumbers.push(startPageNumber + i);
         }
     }
 
@@ -61,11 +44,75 @@
 
 </script>
 
-<div class="flex flex-col max-w-5xl px-5">
-    <h1>Current Page:{currentPage}</h1>
+<!--<h1>Current Page:{currentPage}</h1>-->
+<!--<h1>Total Pokemon:{totalPokemon}</h1>-->
+<!--<h1>Total Pages:{totalPages}</h1>-->
+<!--<h1>Final Page Start Page:{finalPagesStartPage}</h1>-->
+<div class="sticky top-0 z-10 backdrop-blur-md sm:hidden text-xl text-slate-700 font-bold border-b-slate-300 border">
+        <div class="devBorder">
+            <!--        Previous/Next Button Container-->
+            <div class="flex flex-row w-screen px-10 justify-between devBorder">
+                <!--            Previous Button(s)-->
+                <button class="navButton devBorder"
+                        on:click|preventDefault={() => setCurrentPage(currentPage - 1)}
+                >
+                    Previous
+                </button>
+                <!--            Next Button-->
+                <button class="navButton devBorder"
+                        on:click|preventDefault={() => setCurrentPage(currentPage + 1)}
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+</div>
+<div class="flex flex-col max-w-5xl space-y-6 px-5">
     <h1 class="text-4xl text-slate-700 text-center font-bold drop-shadow-lg duration-200">This is the Pokemon page</h1>
+    <!--    Navigation Button Containers-->
+    <div class="flex flex-col justify-center text-xl text-slate-700 font-bold">
+        <div class="flex flex-col justify-center mt-4 devBorder">
+            <!--        Previous/Next Button Container-->
+            <div class="navButtonContainer devBorder">
+
+                <!--        Page Number Container-->
+                <div class="flex flex-wrap justify-center devBorder">
+                        {#each pageNumbers as page, i}
+                            {#if currentPage > 0}
+                                <button class="pageNumbers {page === currentPage ? 'text-red-900' : ''}"
+                                        on:click|preventDefault={() => setCurrentPage(page)}
+                                >
+                                    {page}
+                                </button>
+                            {/if}
+                        {/each}
+                </div>
+            </div>
+            <!--    Navigation Button Containers-->
+            <div class="flex flex-col justify-center text-xl text-slate-700 font-bold">
+                <div class="flex flex-col justify-center mt-4 devBorder">
+                    <!--        Previous/Next Button Container-->
+                    <div class="flex flex-row justify-between px-10 devBorder">
+                        <!--            Previous Button(s)-->
+                        <button class="w-10 navButton"
+                                on:click|preventDefault={() => setCurrentPage(currentPage - 1)}
+                        >
+                            Previous
+                        </button>
+                        <!--            Next Button-->
+                        <button class="w-10 navButton"
+                                on:click|preventDefault={() => setCurrentPage(currentPage + 1)}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!--Pokemon Card Container-->
-    <div class="flex flex-row flex-wrap justify-center pt-10 devBorder">
+    <div class="flex flex-row flex-wrap justify-center devBorder">
 <!--    Loop for each pokemon card-->
     {#each allPokemon as pokemon, i}
         {#if i >= pokeRangeLow && i < pokeRangeHigh }
@@ -74,64 +121,55 @@
         {/if}
     {/each}
     </div>
-<!--    Navigation Button Containers-->
-    <div class="flex flex-col justify-center devBorder">
-        <div class="flex flex-row justify-center space-x-5 pt-4 text-2xl text-slate-700 font-bold devBorder ">
-            {#each pageNumbers as page, i}
-                {#if currentPage > 0}
-                    <button class="hover:-translate-y-0.5 {page === currentPage ? 'scale-150' : ''} duration-300 hover:underline"
-                            on:click|preventDefault={() => setCurrentPage(page)}
-                            on:click|preventDefault={() => setPageNumbersUsingNumbers(page)}
-                    >
-                        {page}
-                    </button>
-                {/if}
-            {/each}
-        </div>
-        <div class="flex flex-row justify-between px-10 py-4 space-x-5 devBorder">
-            {#if currentPage <= 1}
-                <button class="flex justify-center
-                       text-slate-700 font-semibold
-                       rounded-lg text-lg
-                       bg-blue-200 border-0 py-2 w-28
-                       focus:outline-none
-                       hover:bg-blue-900 hover:-translate-y-0.5 hover:text-white
-                       drop-shadow-lg
-                       duration-200"
-                     on:click|preventDefault={handlePageOne}
-                 >
-                    Previous
-                 </button>
-            {:else if currentPage > 1}
-                <button class="flex justify-center
-                       text-slate-700 font-semibold
-                       rounded-lg text-lg
-                       bg-blue-200 border-0 py-2 w-28
-                       focus:outline-none
-                       hover:bg-blue-900 hover:-translate-y-0.5 hover:text-white
-                       drop-shadow-lg
-                       duration-200"
-                on:click|preventDefault={() => setCurrentPage(currentPage - 1)}
-                on:click|preventDefault={() => setPageNumbersUsingPrevious(currentPage - 1)}
+    <!--    Navigation Button Containers-->
+    <div class="flex flex-col justify-center text-xl text-slate-700 font-bold">
+        <div class="flex flex-col justify-center mt-4 devBorder">
+            <!--        Previous/Next Button Container-->
+            <div class="flex flex-row justify-between px-10 devBorder">
+                <!--            Previous Button(s)-->
+                <button class="w-10 navButton"
+                        on:click|preventDefault={() => setCurrentPage(currentPage - 1)}
                 >
                     Previous
                 </button>
-            {/if}
-            <button class="flex justify-center
-                           text-slate-700 font-semibold
-                           rounded-lg text-lg
-                           bg-blue-200 border-0 py-2 w-28
-                           focus:outline-none
-                           hover:bg-blue-900 hover:-translate-y-0.5 hover:text-white
-                           drop-shadow-lg
-                           duration-200"
-                    on:click|preventDefault={() => setCurrentPage(currentPage + 1)}
-                    on:click|preventDefault={() => setPageNumbersUsingNext(currentPage + 1)}
-            >
-                Next
-            </button>
+                <!--            Next Button-->
+                <button class="w-10 navButton"
+                        on:click|preventDefault={() => setCurrentPage(currentPage + 1)}
+                >
+                    Next
+                </button>
+            </div>
         </div>
-
     </div>
+
 </div>
 
+<style>
+    .navButtonContainer {
+        @apply
+        flex
+        flex-row
+        max-w-fit
+        mx-auto
+        space-x-0
+        sm:space-x-5
+        pt-2
+        pb-1
+    }
+
+    .navButton {
+        @apply
+        px-0
+        sm:px-4
+        hover:text-amber-700
+        duration-500
+    }
+
+    .pageNumbers {
+        @apply
+        w-7
+        sm:w-7
+        hover:text-amber-700
+        duration-500
+    }
+</style>
