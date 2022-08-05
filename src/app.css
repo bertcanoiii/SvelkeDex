@@ -4,6 +4,29 @@
 @tailwind components;
 @tailwind utilities;
 
+.pageTitle {
+    @apply
+    text-4xl
+    text-slate-700
+    text-center
+    font-bold
+    drop-shadow-lg
+}
+
+.navButton {
+    @apply
+    flex
+    justify-center
+    items-center
+    text-xl
+    text-slate-700
+    font-bold
+    px-0
+    sm:px-4
+    hover:text-amber-700
+    duration-500
+}
+
 /*.devBorder {*/
 /*    @apply*/
 /*        border-2*/

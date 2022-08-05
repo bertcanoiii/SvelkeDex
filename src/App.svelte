@@ -20,9 +20,9 @@
 </script>
 
 <main class="devBorder">
-    <div class="flex flex-row">
+    <div class="flex flex-row devBorder">
         <Navbar/>
-        <div class="pt-4">
+        <div class="pt-4 devBorder">
             <Router {routes}/>
         </div>
     </div>

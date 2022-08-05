@@ -51,9 +51,9 @@
 <!--Main Container-->
 <div class="max-w-5xl px-0">
 <!--    Page Title-->
-    <h1 class="text-4xl text-slate-700 text-center font-bold drop-shadow-lg duration-200">Currently Discovered Pokemon</h1>
+    <h1 class="pageTitle">Currently Discovered Pokemon</h1>
     <!--    Navigation Button Containers-->
-    <div class="flex flex-col sticky top-0 z-10 backdrop-blur-md border-b border-slate-200 justify-center text-xl text-slate-700 font-bold
+    <div class="flex flex-col sticky top-0 z-10 backdrop-blur-sm border-b border-slate-200 justify-center text-xl text-slate-700 font-bold
                 transition-transform ease-in duration-500">
         <!--        Navigation Button Container-->
         <div class="flex flex-col justify-center my-2 devBorder">
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <!--    Navigation Button Containers-->
-            <div class="flex flex-col justify-center text-xl text-slate-700 font-bold">
+            <div class="flex flex-col justify-center">
                 <div class="flex flex-col justify-center devBorder">
                     <!--        Previous/Next Button Container-->
                     <div class="flex flex-row justify-between devBorder">
@@ -114,16 +114,6 @@
 </div>
 
 <style>
-    .navButton {
-        @apply
-        flex
-        justify-center
-        items-center
-        px-0
-        sm:px-4
-        hover:text-amber-700
-        duration-500
-    }
     .pageNumbers {
         @apply
         w-7

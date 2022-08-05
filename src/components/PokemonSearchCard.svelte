@@ -59,9 +59,6 @@
         @apply bg-blue-200
         rounded-full
         group-hover:bg-transparent
-        /*group-hover:border*/
-        /*sm:group-hover:border-4*/
-        /*group-hover:border-blue-600*/
         ease-linear
         duration-200
     }
