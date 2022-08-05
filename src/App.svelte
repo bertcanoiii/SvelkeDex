@@ -22,7 +22,7 @@
 <main class="">
     <div class="flex flex-row">
         <Navbar/>
-        <div class="w-screen routerBorder">
+        <div class="w-screen">
             <Router {routes}/>
         </div>
     </div>

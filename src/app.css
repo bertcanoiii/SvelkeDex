@@ -33,11 +33,11 @@
 /*        border-black*/
 /*}*/
 
-.routerBorder {
-    @apply
-    border
-    border-orange-500
-}
+/*.routerBorder {*/
+/*    @apply*/
+/*    border*/
+/*    border-orange-500*/
+/*}*/
 
 .routeContainer {
     @apply
