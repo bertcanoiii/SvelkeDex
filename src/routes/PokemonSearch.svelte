@@ -1,6 +1,9 @@
 <script>
     import pokemonData from "../pokemonData.js";
+    import sprites from "../sprites.js";
     import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
+
+    const spriteArray = sprites;
 
     const pokemonInitialData = pokemonData;
     let currentPage = 1;
@@ -117,7 +120,11 @@
     {#each allPokemon as pokemon, i}
         {#if i >= pokeRangeLow && i < pokeRangeHigh }
         <!--Pokemon Cards-->
-            <PokemonSearchCard pokemonName="{pokemon.identifier}" pokemonId="{pokemon.id}"></PokemonSearchCard>
+            {#if spriteArray.includes(`${pokemon.id}.png`)}
+                <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png" pokemonName="{pokemon.identifier}"></PokemonSearchCard>
+            {:else}
+                <PokemonSearchCard pokePicPath="images/main_sprites/0.png" pokemonName="{pokemon.identifier}"></PokemonSearchCard>
+            {/if}
         {/if}
     {/each}
     </div>
@@ -145,17 +152,17 @@
 </div>
 
 <style>
-    .navButtonContainer {
-        @apply
-        flex
-        flex-row
-        max-w-fit
-        mx-auto
-        space-x-0
-        sm:space-x-5
-        pt-2
-        pb-1
-    }
+    /*.navButtonContainer {*/
+    /*    @apply*/
+    /*    flex*/
+    /*    flex-row*/
+    /*    max-w-fit*/
+    /*    mx-auto*/
+    /*    space-x-0*/
+    /*    sm:space-x-5*/
+    /*    pt-2*/
+    /*    pb-1*/
+    /*}*/
 
     .navButton {
         @apply
