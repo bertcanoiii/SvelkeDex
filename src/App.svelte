@@ -22,7 +22,7 @@
 <main class="devBorder">
     <div class="flex flex-row">
         <Navbar/>
-        <div class="py-10">
+        <div class="pt-4">
             <Router {routes}/>
         </div>
     </div>
