@@ -49,7 +49,7 @@
 <!--Glass Nav Button Container-->
 
 <!--Main Container-->
-<div class="max-w-5xl px-0">
+<div class="routeContainer">
 <!--    Page Title-->
     <h1 class="pageTitle">Currently Discovered Pokemon</h1>
     <!--    Navigation Button Containers-->

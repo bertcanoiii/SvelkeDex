@@ -25,6 +25,6 @@
         font-bold
         underline
         hover:text-white
-        duration-300
+        duration-200
     }
 </style>

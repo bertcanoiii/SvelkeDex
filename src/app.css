@@ -32,3 +32,14 @@
 /*        border-2*/
 /*        border-black*/
 /*}*/
+
+.routerBorder {
+    @apply
+    border
+    border-orange-500
+}
+
+.routeContainer {
+    @apply
+    pt-6
+}

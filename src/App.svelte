@@ -19,10 +19,10 @@
     // });
 </script>
 
-<main class="devBorder">
-    <div class="flex flex-row devBorder">
+<main class="">
+    <div class="flex flex-row">
         <Navbar/>
-        <div class="pt-4 devBorder">
+        <div class="w-screen routerBorder">
             <Router {routes}/>
         </div>
     </div>
