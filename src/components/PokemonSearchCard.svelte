@@ -21,7 +21,7 @@
 </script>
 
 <div class="w-28 relative group">
-    <div class="flex flex-col m-1 items-center cardBackground" transition:fade={{duration:200}}>
+    <div class="flex flex-col m-1 items-center cardBackground">
         <!--            Pokemon Name-->
         <div class="w-full text-center items-center devBorder">
             <h3 class="nameText">{pokemonName}</h3>

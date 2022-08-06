@@ -11,8 +11,8 @@
                  alt="logo"
             >
         </a>
-        <div class="flex flex-row space-x-4 items-center devBorder">
-            <a class="navBarLink" href="/">Home</a>
+        <div class="flex flex-row space-x-10 items-center devBorder">
+            <a class="navBarLink" href="#/welcome">Home</a>
             <a class="navBarLink" href="#/pokemon">Pokemon</a>
             <a class="navBarLink" href="#/about">About</a>
         </div>

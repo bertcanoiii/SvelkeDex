@@ -5,7 +5,7 @@
 
 
 <div class="relative flex flex-col justify-center devBorder">
-    <div class="min-h-screen -z-10"
+    <div class="min-h-screen"
         style="background-image: url('/images/background.jpg');
                background-repeat: no-repeat;
                background-position: top;

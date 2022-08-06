@@ -5,6 +5,7 @@ import PokemonSearch from "./routes/PokemonSearch.svelte";
 
 export default {
     '/': Home,
+    '/welcome': Home,
     '/pokemon': PokemonSearch,
     //Dynamically loaded page
     '/about': wrap({
