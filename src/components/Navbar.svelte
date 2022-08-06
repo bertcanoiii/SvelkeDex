@@ -5,7 +5,7 @@
 
 <div class="text-center w-screen bg-blue-300 border-b-2 border-slate-200 py-2 devBorder" transition:slide>
     <div class="flex flex-col items-center min-w-screen devBorder">
-        <a href="/">
+        <a href="/#/lost">
             <img class="devBorder h-20 w-20 hover:rotate-45 hover:translate-y-1 duration-200"
                  src="images/logo.png"
                  alt="logo"
