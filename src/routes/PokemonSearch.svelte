@@ -1,18 +1,20 @@
 <script>
-    import { fade,slide } from 'svelte/transition';
+    import { fade } from 'svelte/transition';
     import pokemonData from "../pokemonData.js";
     import sprites from "../sprites.js";
     import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
+    import Footer from "../components/Footer.svelte";
 
     const spriteArray = sprites;
     const pokemonInitialData = pokemonData;
     let currentPage = 1;
     let startPageNumber = 0;
-    let pokemonPerPage = 40;
+    let pokemonPerPage = 100;
     let allPokemon = pokemonInitialData;
     let totalPokemon = pokemonInitialData.length;
     let numberOfPages = 7;
     let pageNumbers = [1, 2, 3, 4, 5, 6, 7];
+    let screenHeight;
     $: totalPages = Math.ceil(totalPokemon/pokemonPerPage);
     $: finalPagesStartPage = totalPages - numberOfPages + 1;
     $: pokeRangeHigh = currentPage * pokemonPerPage;
@@ -48,73 +50,79 @@
 <!--background-size: cover;"-->
 <!--in:fade={{delay: 100}}-->
 
+<!--sticky top-0 z-10 backdrop-blur-sm-->
+
 <!--Main Container-->
-<div class="min-h-screen pt-5">
-    <div class="flex flex-col items-center min-h-screen backdrop-blur-[1px]"
+<div class="pt-5">
+    <div class="flex flex-col items-center backdrop-blur-[1px]"
          in:fade={{delay: 300}}>
-        <div class="flex flex-col max-w-7xl">
+        <div class="flex flex-col h-screen max-w-7xl">
         <!--    Page Title-->
-            <h1 class="pt-6 pageTitle">Currently Discovered Pokemon</h1>
-            <!--    Navigation Button Containers-->
-            <div class="flex flex-col sticky top-0 z-10 backdrop-blur-sm justify-center text-xl text-slate-700 font-bold
-                        transition-transform ease-in duration-500">
-                <!--        Navigation Button Container-->
-                <div class="flex flex-col justify-center my-2 devBorder">
-                    <div class="devBorder">
-                        <!--        Page Number Container-->
-                        <div class="flex flex-shrink-0 justify-center devBorder">
-                            {#each pageNumbers as page, i}
-                                {#if currentPage > 0}
-                                    <button class="pageNumbers {page === currentPage ? 'text-white' : ''}"
-                                            on:click|preventDefault={() => setCurrentPage(page)}
+            <div class="sticky top-0 z-10 backdrop-blur-sm">
+                <h1 class="pt-6 pageTitle">Currently Discovered Pokemon</h1>
+                <!--    Navigation Button Containers-->
+                <div class="flex flex-col justify-center text-xl text-slate-700 font-bold
+                            transition-transform ease-in duration-500">
+                    <!--        Navigation Button Container-->
+                    <div class="flex flex-col justify-center my-2 devBorder">
+                        <div class="devBorder">
+                            <!--        Page Number Container-->
+                            <div class="flex flex-shrink-0 justify-center devBorder">
+                                {#each pageNumbers as page, i}
+                                    {#if currentPage > 0}
+                                        <button class="pageNumbers {page === currentPage ? 'text-white' : ''}"
+                                                on:click|preventDefault={() => setCurrentPage(page)}
+                                                on:click|preventDefault={() => document.body.scrollIntoView()}
+                                        >
+                                            {page}
+                                        </button>
+                                    {/if}
+                                {/each}
+                            </div>
+                        </div>
+                        <!--    Navigation Button Containers-->
+                        <div class="flex flex-col justify-center">
+                            <div class="flex flex-col justify-center devBorder">
+                                <!--        Previous/Next Button Container-->
+                                <div class="flex flex-row justify-between devBorder">
+                                    <!--            Previous Button(s)-->
+                                    <button class="w-24 navButton devBorder"
+                                            on:click|preventDefault={() => setCurrentPage(currentPage - 1)}
                                             on:click|preventDefault={() => document.body.scrollIntoView()}
                                     >
-                                        {page}
+                                        Previous
                                     </button>
-                                {/if}
-                            {/each}
-                        </div>
-                    </div>
-                    <!--    Navigation Button Containers-->
-                    <div class="flex flex-col justify-center">
-                        <div class="flex flex-col justify-center devBorder">
-                            <!--        Previous/Next Button Container-->
-                            <div class="flex flex-row justify-between devBorder">
-                                <!--            Previous Button(s)-->
-                                <button class="w-24 navButton devBorder"
-                                        on:click|preventDefault={() => setCurrentPage(currentPage - 1)}
-                                        on:click|preventDefault={() => document.body.scrollIntoView()}
-                                >
-                                    Previous
-                                </button>
-                                <!--            Next Button-->
-                                <button class="w-24 navButton devBorder"
-                                        on:click|preventDefault={() => setCurrentPage(currentPage + 1)}
-                                        on:click|preventDefault={() => document.body.scrollIntoView()}
-                                >
-                                    Next
-                                </button>
+                                    <!--            Next Button-->
+                                    <button class="w-24 navButton devBorder"
+                                            on:click|preventDefault={() => setCurrentPage(currentPage + 1)}
+                                            on:click|preventDefault={() => document.body.scrollIntoView()}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         <!--Pokemon Card Container-->
-            <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
-                 in:fade={{delay: 500}}>
-                <!--    Loop for each pokemon card-->
-                {#each allPokemon as pokemon, i}
-                    {#if i >= pokeRangeLow && i < pokeRangeHigh }
-                    <!--Pokemon Cards-->
-                        {#if spriteArray.includes(`${pokemon.id}.png`)}
-                            <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png" pokemonName="{pokemon.identifier}"/>
-                        {:else}
-                            <PokemonSearchCard pokePicPath="images/main_sprites/0.png" pokemonName="{pokemon.identifier}"/>
+            <div class="overflow-scroll">
+                <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
+                     in:fade={{delay: 500}}>
+                    <!--    Loop for each pokemon card-->
+                    {#each allPokemon as pokemon, i}
+                        {#if i >= pokeRangeLow && i < pokeRangeHigh }
+                        <!--Pokemon Cards-->
+                            {#if spriteArray.includes(`${pokemon.id}.png`)}
+                                <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png" pokemonName="{pokemon.identifier}"/>
+                            {:else}
+                                <PokemonSearchCard pokePicPath="images/main_sprites/0.png" pokemonName="{pokemon.identifier}"/>
+                            {/if}
                         {/if}
-                    {/if}
-                {/each}
+                    {/each}
+                </div>
             </div>
+            <Footer/>
         </div>
     </div>
 </div>
