@@ -1,48 +1,31 @@
-# Svelte + Vite
+# SvelkeDex
 
-This template should help get you started developing with Svelte in Vite.
+This webapp was made in order to practice Svelte, tailwind, and other web development fundamentals.
 
-## Recommended IDE Setup
+## What I’ve Learned and What Knowledge Has Been Reinforced Working on This Project
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+**Tailwind/Styling**
 
-## Need an official Svelte framework?
+- `flex-Wrap`: 
+  - I learned the hard way that this is a great way to get components within a container to fit in the screen. Even though I learned about this watching/going through several tutorials, it finally clicked when I was trying to get the Pokémon card components to fit on the `/pokemon` page. I think I ended up spending something like 5 hours trying to get grid working the way I wanted until I saw some tutorial video on YouTube and switched to flex-wrap. 
+- `min-h-scren`: 
+  - Means the element in question will stretch to fit the entire screen even if at first the page height has no scroll and then another element stretches the page height requiring the user to scroll.
+- z-positioning: 
+  - On the PokemonSearchCard component, I used z-positioning to hide an element that comes into view upon group-hover. 
+- nav-bar design: 
+  - Nav-bar design, at least at this stage in my learning journey, is quite tricky. I may just be doing it suboptimally. 
+  - Prior to switching to a top-bar, I was using a nav-bar that stayed on the left side of the screen, on default-tailwind `sm:` sized screens or larger. This introduced some issues with side scroll when zoomed in. To get rid of that I switched to a top bar.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+**Svelte** 
 
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+- Routing:
+  - I learned how to utilize [svelte-spa-router](https://github.com/ItalyPaleAle/svelte-spa-router) for routing between pages. This tool is very simple and easy to implement. 
+- API implementation:
+  - Using the [docs](https://svelte.dev/repl/cb31be94ea444b41a11d1320d16ba6dc?version=3.32.3) I was able to implement an api call to [pokeapi.co](https://pokeapi.co/). It took a little while to translate the docs to the object type returned by the pokeapi though. 
+- Pagination:
+  - Used a for loop to create buttons based on the number of pages required to go through all Pokémon depending on how many Pokemon per page are shown.
+  - Pagination on other websites seems to navigate to another route endpoint, example pokemon/page/1.
+  - The pagination I implemented keeps the user on the same page.
+  - I am not sure if my implementation is ideal. It seems to work fine. lol
+- Asset checking:
+  - Not sure if this was the best way to accomplish this, but I wanted to check if a pic of a Pokémon existed. The reason for this is because, before doing so if a pic didn't exist, nothing would fill the poke-pic space, which caused the sizing of the cards to be affected in a less than ideal way. The cards would be smaller. So I created an array of strings, based on all the files currently in the images/main_sprites directory. In the for loop, I implemented an if condition that checked whether the pic existed in the array based on the Pokémon’s ID. If it did exist, I passed the path to the pic to the component. If it didn't exist, I passed the pat to a pic containing a question mark to the component.
