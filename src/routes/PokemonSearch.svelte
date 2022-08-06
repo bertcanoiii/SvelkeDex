@@ -1,5 +1,5 @@
 <script>
-    import { fade } from 'svelte/transition';
+    import { fade,slide } from 'svelte/transition';
     import pokemonData from "../pokemonData.js";
     import sprites from "../sprites.js";
     import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
@@ -107,9 +107,9 @@
                 {#if i >= pokeRangeLow && i < pokeRangeHigh }
                 <!--Pokemon Cards-->
                     {#if spriteArray.includes(`${pokemon.id}.png`)}
-                        <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png" pokemonName="{pokemon.identifier}"></PokemonSearchCard>
+                        <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png" pokemonName="{pokemon.identifier}"/>
                     {:else}
-                        <PokemonSearchCard pokePicPath="images/main_sprites/0.png" pokemonName="{pokemon.identifier}"></PokemonSearchCard>
+                        <PokemonSearchCard pokePicPath="images/main_sprites/0.png" pokemonName="{pokemon.identifier}"/>
                     {/if}
                 {/if}
             {/each}

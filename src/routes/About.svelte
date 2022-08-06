@@ -19,7 +19,7 @@
             </div>
             <div class="flex flex-wrap justify-center aboutText">
                 <ul>
-                    <li>What I learned/What Knowledge Was Reinforced</li>
+                    <li>This is a simple web app made with Svelte</li>
                 </ul>
             </div>
         </div>

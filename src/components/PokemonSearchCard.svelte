@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { fade } from 'svelte/transition';
 
     export let pokemonName;
     export let pokePicPath;
@@ -11,10 +12,16 @@
         }
     })
 
+    onMount(async () => {
+        if (pokemonName.length > 12) {
+            pokemonName = pokemonName.slice(0, 12);
+        }
+    })
+
 </script>
 
 <div class="w-28 relative group">
-    <div class="flex flex-col m-1 items-center cardBackground">
+    <div class="flex flex-col m-1 items-center cardBackground" transition:fade={{duration:200}}>
         <!--            Pokemon Name-->
         <div class="w-full text-center items-center devBorder">
             <h3 class="nameText">{pokemonName}</h3>

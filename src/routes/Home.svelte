@@ -23,14 +23,11 @@
         >
             <div class="flex flex-col h-screen backdrop-blur-md routeContainer"
                  in:fade={{delay: 700}}>
-                <div class="text-center text-3xl text-slate-700" in:fade={{delay: 900}}>
-                    <h1>Welcome to svelkedex.com!</h1>
+                <div class="text-center text-6xl pt-24 text-slate-700" in:fade={{delay: 900}}>
+                    <h1>Welcome to SvelkeDex!</h1>
                 </div>
-                <div class="flex flex-wrap justify-center homeText" in:fade={{delay: 1200}}
-                >
-                    <ul>
-                        <li>This is a simple web app made with Svelte</li>
-                    </ul>
+                <div class="flex flex-wrap justify-center homeText" in:fade={{delay: 1200}}>
+
                 </div>
             </div>
         </div>
