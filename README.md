@@ -46,3 +46,9 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
      ```
 
   - `transition:fade`: This is an easy way to get things to fade in, easy +1 fancy points.
+
+**Deploying to Netlify**
+- I learned how to deploy to Netlify.
+- The only, small, obstacle I encountered was what to set the Basic-build settings to. After doing some research these options worked:
+  - Build command: npm run build
+  - Publish directory: dist

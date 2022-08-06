@@ -35,7 +35,7 @@
 
                         </div>
                         <div class="flex justify-end pr-16 sm:pr-12 devBorder" in:fade={{delay: 1400}}>
-                            <a class="flex flex-col items-center justify-center devBorder" href="/#/pokemon">
+                            <a class="flex flex-col items-center justify-center devBorder" href="/#/about">
                                 <img class="h-40" src="images/home_pic_2.jpeg" alt="">
                                 About This Site!
                             </a>
