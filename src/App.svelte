@@ -3,6 +3,7 @@
     import routes from './routes.js'
     import Router from 'svelte-spa-router'
     import Navbar from './components/Navbar.svelte'
+    import Footer from "./components/Footer.svelte";
 
     // import { onMount } from 'svelte';
     // import { pokeData, pokemonList } from "./store.js";
@@ -44,6 +45,7 @@
             {/if}
         </div>
         <Router {routes}/>
+        <Footer/>
     </div>
 </main>
 
