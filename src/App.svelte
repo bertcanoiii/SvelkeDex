@@ -43,7 +43,7 @@
             {:else}
                 <button class="absolute right-4 top-2 text-slate-700 hover:text-white duration-200"
                         on:click={showMenuButton}
-                        transition:fade={{delay: 500, duration:500}}
+                        in:fade={{delay: 500, duration:500}}
                 >
                     hide menu
                 </button>
