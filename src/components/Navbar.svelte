@@ -1,11 +1,18 @@
 <script>
+    import { fade } from 'svelte/transition';
+
 </script>
 
-<div class="hidden text-center sm:flex sm:flex-col sm:min-h-screen bg-blue-300 devBorder">
-    <div class="flex flex-col items-center pt-2 px-5 w-36 devBorder">
+<div class="text-center pt-5 sm:flex sm:flex-col sm:min-h-screen bg-blue-300 border-r-2 border-slate-200 devBorder"
+    in:fade={{duration:500}}
+    >
+    <div class="flex flex-col items-center pt-2 px-5 w-36 sticky top-0 devBorder">
         <div class="flex">
             <a href="/">
-                <img class="devBorder ml-2 hover:rotate-12 duration-300" src="images/logo.png" alt="logo">
+                <img class="devBorder ml-2 hover:rotate-12 duration-300"
+                     src="images/logo.png"
+                     alt="logo"
+                >
             </a>
         </div>
         <div class="flex flex-col space-y-5 pt-5 devBorder">

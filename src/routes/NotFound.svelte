@@ -11,7 +11,10 @@
          in:fade={{delay: 200}}
     >
 <!--        <h1 class="absolute top-5 left-10 text-4xl text-slate-200 text-center font-bold backdrop-blur-md rounded-2xl pt-1 px-5">Lost?</h1>-->
-        <a class="lostLink" in:fade={{delay: 500}} href="/">Lost? Click me to go home</a>
+        <a class="lostLink" in:fade={{delay: 500}} href="/">
+            <p>Lost?</p>
+            <p>Click me to go home</p>
+        </a>
     </div>
 </div>
 

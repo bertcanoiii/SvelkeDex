@@ -10,10 +10,10 @@
                background-repeat: no-repeat;
                background-position: top;
                background-size: cover;"
-         in:fade={{delay: 500}}
+         in:fade={{delay: 300}}
     >
-        <div class="flex flex-col h-screen backdrop-blur-md"
-        in:fade={{delay: 1000}}>
+        <div class="flex flex-col h-screen backdrop-blur-md routeContainer"
+        in:fade={{delay: 700}}>
             <div class="text-center text-3xl text-slate-700">
                 <h1>About</h1>
             </div>
@@ -24,8 +24,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 <style>

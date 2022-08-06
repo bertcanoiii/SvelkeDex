@@ -14,7 +14,6 @@
 </script>
 
 <div class="w-28 relative group">
-
     <div class="flex flex-col m-1 items-center cardBackground">
         <!--            Pokemon Name-->
         <div class="w-full text-center items-center devBorder">
@@ -44,7 +43,7 @@
 
     .cardBackground {
         @apply
-        bg-blue-100
+        bg-blue-100/50
         py-2
         rounded-md
         drop-shadow-md
