@@ -32,31 +32,25 @@
 <svelte:window bind:outerWidth={screenSize}/>
 
 <main class="border-slate-200 border-2">
-    <div class="flex flex-row">
-        <div class="relative flex flex-column">
-            {#if showHamburger}
-                {#if !showMenu}
-                    <button class="z-50" on:click={showMenuButton} in:fade={{delay: 500, duration:700}}>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-slate-700 hover:stroke-amber-500 duration-200 h-8 w-10 absolute top-2 left-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                {:else}
-                    <button class="z-50 w-full text-slate-700 text-xs text-center absolute top-2 hover:text-white duration-200"
-                            on:click={showMenuButton}
-                            in:fade={{delay: 500, duration:700}}
-                    >
-                        hide menu
-                    </button>
-                    <Navbar/>
-                {/if}
+    <div class="flex flex-col">
+        <div class="relative flex flex-col">
+            {#if !showMenu}
+                <button class="z-10" on:click={showMenuButton} in:fade={{delay: 500, duration:500}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-slate-700 hover:stroke-white duration-200 h-8 w-10 absolute top-2 right-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             {:else}
+                <button class="absolute right-4 top-2 text-slate-700 hover:text-white duration-200"
+                        on:click={showMenuButton}
+                        transition:fade={{delay: 500, duration:500}}
+                >
+                    hide menu
+                </button>
                 <Navbar/>
             {/if}
         </div>
-        <div class="w-screen">
-            <Router {routes}/>
-        </div>
+        <Router {routes}/>
     </div>
 </main>
 

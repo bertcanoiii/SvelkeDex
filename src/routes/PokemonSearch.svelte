@@ -43,7 +43,7 @@
 </script>
 
 <!--Main Container-->
-<div class="min-h-screen -z-10"
+<div class="min-h-screen pt-5"
      style="background-image: url('/images/background2.png');
                background-repeat: no-repeat;
                background-position: top;
@@ -64,7 +64,7 @@
                     <div class="flex flex-shrink-0 justify-center devBorder">
                         {#each pageNumbers as page, i}
                             {#if currentPage > 0}
-                                <button class="pageNumbers {page === currentPage ? 'text-red-900' : ''}"
+                                <button class="pageNumbers {page === currentPage ? 'text-white' : ''}"
                                         on:click|preventDefault={() => setCurrentPage(page)}
                                         on:click|preventDefault={() => document.body.scrollIntoView()}
                                 >
@@ -122,7 +122,7 @@
         @apply
         w-7
         sm:w-7
-        hover:text-amber-700
-        duration-500
+        hover:text-white
+        duration-300
     }
 </style>

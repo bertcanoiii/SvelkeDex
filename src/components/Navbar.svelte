@@ -1,21 +1,17 @@
 <script>
-    import { fade } from 'svelte/transition';
+    import { slide } from 'svelte/transition';
 
 </script>
 
-<div class="text-center pt-5 sm:flex sm:flex-col sm:min-h-screen bg-blue-300 border-r-2 border-slate-200 devBorder"
-    in:fade={{duration:500}}
-    >
-    <div class="flex flex-col items-center pt-2 px-5 w-36 sticky top-0 devBorder">
-        <div class="flex">
-            <a href="/">
-                <img class="devBorder ml-2 hover:rotate-12 duration-300"
-                     src="images/logo.png"
-                     alt="logo"
-                >
-            </a>
-        </div>
-        <div class="flex flex-col space-y-5 pt-5 devBorder">
+<div class="text-center w-screen bg-blue-300 border-b-2 border-slate-200 py-2 devBorder" transition:slide>
+    <div class="flex flex-col items-center min-w-screen devBorder">
+        <a href="/">
+            <img class="devBorder h-20 w-20 hover:rotate-45 hover:translate-y-1 duration-200"
+                 src="images/logo.png"
+                 alt="logo"
+            >
+        </a>
+        <div class="flex flex-row space-x-4 items-center devBorder">
             <a class="navBarLink" href="/">Home</a>
             <a class="navBarLink" href="#/pokemon">Pokemon</a>
             <a class="navBarLink" href="#/about">About</a>
@@ -23,11 +19,10 @@
     </div>
 </div>
 
-
 <style>
     .navBarLink {
         @apply
-        text-xl
+        text-lg
         text-slate-700
         font-bold
         underline
