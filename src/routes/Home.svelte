@@ -10,9 +10,9 @@
     onDestroy(() => clearInterval(counterInterval));
 </script>
 
-<!--{#if fadeLoader}-->
-<!--    <Loading/>-->
-<!--{:else}-->
+{#if fadeLoader}
+    <Loading/>
+{:else}
     <div class="relative min-h-screen flex flex-col justify-center devBorder">
         <div class="min-h-screen"
              style="background-image: url('/images/background2.png');
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-<!--{/if}-->
+{/if}
 
 <style>
     .linkBackground {
