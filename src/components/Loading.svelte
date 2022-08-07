@@ -2,14 +2,7 @@
     import { fade } from 'svelte/transition';
 </script>
 
-<div class="relative flex flex-col justify-center devBorder">
-<!--    <div class="min-h-screen"-->
-<!--         style="background-image: url('/images/simple_pokeball.gif');-->
-<!--                   background-repeat: no-repeat;-->
-<!--                   background-position: top;-->
-<!--                   background-size: cover;"-->
-<!--         out:fade>-->
-<!--    </div>-->
-<img class="h-screen object-cover" src="images/simple_pokeball.gif" alt=""
+<div class="relative h-screen flex flex-col justify-center items-center devBorder">
+    <img class="flex h-24 bg-transparent items-center border-b justify-center" src="images/pikachu_running.gif" alt=""
      out:fade>
 </div>

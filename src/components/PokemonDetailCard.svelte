@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--                left stats-->
-        <div class="flex flex-col w-1/4 text-start text-m justify-start pt-5 px-5 dbr">
+        <div class="flex flex-col w-1/2 text-start text-m justify-start pt-5 px-5 dbr">
             <h1 class="text-2xl">Current Available Data on {pokemonData.name}</h1>
             <h1>Type: {pokemonData.types[0].type.name}</h1>
             {#each pokemonData.stats as item, i}

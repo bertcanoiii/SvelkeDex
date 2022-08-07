@@ -30,7 +30,7 @@
     //Counter for loading on first visit
     let counter = 0;
     const counterInterval = setInterval(() => counter += 0.5, 500);
-    $: fadeLoader = (counter <= 0.5);
+    $: fadeLoader = (counter <= 1);
 
     onDestroy(() => clearInterval(counterInterval));
 

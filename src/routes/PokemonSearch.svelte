@@ -9,7 +9,7 @@
     const pokemonInitialData = pokemonData;
     let currentPage = 1;
     let startPageNumber = 0;
-    let pokemonPerPage = 100;
+    let pokemonPerPage = 40;
     let allPokemon = pokemonInitialData;
     let totalPokemon = pokemonInitialData.length;
     let numberOfPages = 7;
