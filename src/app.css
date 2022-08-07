@@ -39,7 +39,20 @@
 /*    border-orange-500*/
 /*}*/
 
+/*.dbr {*/
+/*    @apply*/
+/*    border*/
+/*    border-red-600*/
+/*}*/
+
 .routeContainer {
     @apply
     pt-10
+}
+
+.absRef {
+    @apply
+    absolute
+    top-3
+    left-3
 }

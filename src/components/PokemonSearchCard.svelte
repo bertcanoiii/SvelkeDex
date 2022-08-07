@@ -4,6 +4,9 @@
 
     export let pokemonName;
     export let pokePicPath;
+    export let pokeId;
+
+    let detailUrl = `#/pokemon/${pokeId}`;
 
 
     onMount(async () => {
@@ -21,18 +24,20 @@
 </script>
 
 <div class="w-28 relative group">
-    <div class="flex flex-col m-1 items-center cardBackground">
-        <!--            Pokemon Name-->
-        <div class="w-full text-center items-center devBorder">
-            <h3 class="nameText">{pokemonName}</h3>
+    <a href="{detailUrl}">
+        <div class="flex flex-col m-1 items-center cardBackground">
+            <!--            Pokemon Name-->
+            <div class="w-full text-center items-center devBorder">
+                <h3 class="nameText">{pokemonName}</h3>
+            </div>
+            <!--            Pokemon Pic-->
+            <div class="flex flex-row justify-center items-center m-2 pokePicBackground">
+        <!--        <p class="text-slate-700 font-bold">ID:{pokemon.url.substring(34, pokemon.url.length - 1)}</p>-->
+                <div class="absolute w-24 h-24 -z-50 border rounded-full group-hover:block group-hover:border-blue-600 group-hover:border-8 duration-500"></div>
+                <img class="devBorder group-hover:-translate-y-0.5 group-hover:scale-150 hover:rotate-3 duration-300 group-hover:a" src="{pokePicPath}" alt="images/pokeball_pic.png"/>
+            </div>
         </div>
-        <!--            Pokemon Pic-->
-        <div class="flex flex-row justify-center items-center m-2 pokePicBackground">
-<!--        <p class="text-slate-700 font-bold">ID:{pokemon.url.substring(34, pokemon.url.length - 1)}</p>-->
-            <div class="absolute w-24 h-24 -z-50 border rounded-full group-hover:block group-hover:border-blue-600 group-hover:border-8 duration-500"></div>
-            <img class="devBorder group-hover:-translate-y-0.5 group-hover:scale-150 hover:rotate-3 duration-300 group-hover:a" src="{pokePicPath}" alt="images/pokeball_pic.png"/>
-        </div>
-    </div>
+    </a>
 </div>
 
 <style>

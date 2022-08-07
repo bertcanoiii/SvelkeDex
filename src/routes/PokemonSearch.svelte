@@ -114,9 +114,15 @@
                         {#if i >= pokeRangeLow && i < pokeRangeHigh }
                         <!--Pokemon Cards-->
                             {#if spriteArray.includes(`${pokemon.id}.png`)}
-                                <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png" pokemonName="{pokemon.identifier}"/>
+                                <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png"
+                                                   pokemonName="{pokemon.identifier}"
+                                                   pokeId="{pokemon.id}"
+                                />
                             {:else}
-                                <PokemonSearchCard pokePicPath="images/main_sprites/0.png" pokemonName="{pokemon.identifier}"/>
+                                <PokemonSearchCard pokePicPath="images/main_sprites/0.png"
+                                                   pokemonName="{pokemon.identifier}"
+                                                   pokeId="{pokemon.id}"
+                               />
                             {/if}
                         {/if}
                     {/each}
