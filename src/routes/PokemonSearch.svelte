@@ -41,11 +41,15 @@
         }
     }
 
-    const setPokemonPerPage = newDisplayCount => {
-        let tempNewPage = Math.ceil(totalPokemon / newDisplayCount);
-        let tempFinalStartPage = tempNewPage - numberOfPages + 1;
+    let test;
 
-        if (newDisplayCount * totalPages > totalPokemon) {
+    const setPokemonPerPage = newDisplayCount => {
+        let tempNewPage;
+        let tempFinalStartPage;
+
+        if (newDisplayCount * totalPages > totalPokemon && newDisplayCount * $searchPageNumberStore > totalPokemon) {
+            tempNewPage = Math.ceil((totalPokemon/newDisplayCount));
+            tempFinalStartPage = tempNewPage - numberOfPages + 1;
             searchPageNumberStore.set(tempNewPage)
             searchPageStartNumberStore.set(tempFinalStartPage)
             let tempNumbers = [];
@@ -68,6 +72,7 @@
 <!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
 <!--    <p>total pokes: {totalPokemon}</p>-->
 <!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
+<!--    <p>test: {test}</p>-->
 <!--</div>-->
 <!--Main Container-->
 <div class="pt-5">
