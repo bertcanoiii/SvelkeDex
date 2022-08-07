@@ -1,5 +1,6 @@
 <script>
-    import {fade} from 'svelte/transition';
+    import { fade } from 'svelte/transition';
+    import { displayCountDataStore, searchPageNumberStore, searchPageStartNumberStore, pageNumberListStore } from "../store.js";
     import pokemonData from "../pokemonData.js";
     import sprites from "../sprites.js";
     import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
@@ -7,55 +8,67 @@
 
     const spriteArray = sprites;
     const pokemonInitialData = pokemonData;
-    let currentPage = 1;
-    let startPageNumber = 0;
-    let pokemonPerPage = 25;
     let allPokemon = pokemonInitialData;
     let totalPokemon = pokemonInitialData.length;
     let numberOfPages = 7;
-    let pageNumbers = [1, 2, 3, 4, 5, 6, 7];
-    let screenHeight;
-    $: totalPages = Math.ceil(totalPokemon / pokemonPerPage);
+    $: totalPages = Math.ceil(totalPokemon / $displayCountDataStore);
     $: finalPagesStartPage = totalPages - numberOfPages + 1;
-    $: pokeRangeHigh = currentPage * pokemonPerPage;
-    $: pokeRangeLow = pokeRangeHigh - pokemonPerPage;
+    $: pokeRangeHigh = $searchPageNumberStore * $displayCountDataStore;
+    $: pokeRangeLow = pokeRangeHigh - $displayCountDataStore;
 
     const setCurrentPage = newPage => {
         if (newPage > totalPages) {
-            currentPage = totalPages;
+            searchPageNumberStore.set(totalPages);
         } else if (newPage < 1) {
-            currentPage = 1;
+            searchPageNumberStore.set(1);
         } else {
-            currentPage = newPage;
+            searchPageNumberStore.set(newPage);
         }
 
         if (newPage <= 4) {
-            startPageNumber = 1;
+            searchPageStartNumberStore.set(1);
         } else if (newPage > finalPagesStartPage) {
-            startPageNumber = finalPagesStartPage;
+            searchPageStartNumberStore.set(finalPagesStartPage);
         } else {
-            startPageNumber = (newPage - Math.floor(numberOfPages / 2));
+            searchPageStartNumberStore.set(newPage - Math.floor(numberOfPages / 2));
         }
-        pageNumbers = [];
+
+        let tempNumbers = [];
+
         for (let i = 0; i < numberOfPages; i++) {
-            pageNumbers.push(startPageNumber + i);
+            tempNumbers.push($searchPageStartNumberStore + i);
+            pageNumberListStore.set(tempNumbers);
         }
     }
 
-    const setPokemonPerPage = newAmount => {
-        pokemonPerPage = newAmount;
+    const setPokemonPerPage = newDisplayCount => {
+        let tempNewPage = Math.ceil(totalPokemon / newDisplayCount);
+        let tempFinalStartPage = tempNewPage - numberOfPages + 1;
+
+        if (newDisplayCount * totalPages > totalPokemon) {
+            searchPageNumberStore.set(tempNewPage)
+            searchPageStartNumberStore.set(tempFinalStartPage)
+            let tempNumbers = [];
+            for (let i = 0; i < numberOfPages; i++) {
+                tempNumbers.push($searchPageStartNumberStore + i);
+                pageNumberListStore.set(tempNumbers);
+            }
+        }
+
+        displayCountDataStore.set(newDisplayCount);
     }
 
 </script>
 
-<!--style="background-image: url('/images/background2.png');-->
-<!--background-repeat: no-repeat;-->
-<!--background-position: top;-->
-<!--background-size: cover;"-->
-<!--in:fade={{delay: 100}}-->
-
-<!--sticky top-0 z-10 backdrop-blur-sm-->
-
+<!--debug-->
+<!--<div class="dbd">-->
+<!--    <p>displaycount: {$displayCountDataStore}</p>-->
+<!--    <p>currentpage: {$searchPageNumberStore}</p>-->
+<!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
+<!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
+<!--    <p>total pokes: {totalPokemon}</p>-->
+<!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
+<!--</div>-->
 <!--Main Container-->
 <div class="pt-5">
     <div class="flex flex-col items-center backdrop-blur-[1px]"
@@ -72,16 +85,23 @@
                         <div class="devBorder">
                             <!--        Page Number Container-->
                             <div class="flex flex-shrink-0 justify-center devBorder">
-                                {#each pageNumbers as page, i}
-                                    {#if currentPage > 0}
-                                        <button class="pageNumbers {page === currentPage ? 'text-white' : ''}"
+                                <button class="pageNumbers {$pageNumberListStore.includes(1)? 'hidden' : ''}"
+                                        on:click|preventDefault={() => setCurrentPage(1)}>
+                                    1...
+                                </button>
+                                {#each $pageNumberListStore as page, i}
+                                    {#if $searchPageNumberStore > 0}
+                                        <button class="pageNumbers {page === $searchPageNumberStore ? 'text-white' : ''}"
                                                 on:click|preventDefault={() => setCurrentPage(page)}
-                                                on:click|preventDefault={() => document.body.scrollIntoView()}
                                         >
                                             {page}
                                         </button>
                                     {/if}
                                 {/each}
+                                <button class="pageNumbers {$pageNumberListStore.includes(totalPages)? 'hidden' : ''}"
+                                        on:click|preventDefault={() => setCurrentPage(totalPages)}>
+                                    ...{totalPages}
+                                </button>
                             </div>
                         </div>
                         <!--    Navigation Button Containers-->
@@ -91,8 +111,7 @@
                                 <div class="flex flex-row justify-between devBorder">
                                     <!--            Previous Button(s)-->
                                     <button class="w-24 navButton devBorder"
-                                            on:click|preventDefault={() => setCurrentPage(currentPage - 1)}
-                                            on:click|preventDefault={() => document.body.scrollIntoView()}
+                                            on:click|preventDefault={() => setCurrentPage($searchPageNumberStore - 1)}
                                     >
                                         Previous
                                     </button>
@@ -103,15 +122,15 @@
                                         </div>
                                         <div class="dbr flex flex-row">
                                             <ul class="displayNumberContainer">
-                                                <li class="displayNumber {pokemonPerPage === 10 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(10) }>10</button></li>
-                                                <li class="displayNumber {pokemonPerPage === 25 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(25) }>25</button></li>
-                                                <li class="displayNumber {pokemonPerPage === 50 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(50) }>50</button></li>
-                                                <li class="displayNumber {pokemonPerPage === 100 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(100) }>100</button></li>
+                                                <li class="displayNumber {$displayCountDataStore === 10 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(10) }>10</button></li>
+                                                <li class="displayNumber {$displayCountDataStore === 25 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(25) }>25</button></li>
+                                                <li class="displayNumber {$displayCountDataStore === 50 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(50) }>50</button></li>
+                                                <li class="displayNumber {$displayCountDataStore === 100 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(100) }>100</button></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <!--            Next Button-->
-                                    <button class="w-24 navButton devBorder" on:click|preventDefault={() => setCurrentPage(currentPage + 1)} on:click|preventDefault={() => document.body.scrollIntoView()}>
+                                    <button class="w-24 navButton devBorder" on:click|preventDefault={() => setCurrentPage($searchPageNumberStore + 1)}>
                                         Next
                                     </button>
                                 </div>
@@ -147,15 +166,14 @@
 </div>
 
 <style>
-
     .pageNumbers {
         @apply
-        w-7
+        w-6
         sm:w-7
         hover:text-white
         duration-300
+        border
     }
-
     .displayCountContainer {
         @apply
         flex
@@ -163,7 +181,6 @@
         justify-between
         items-center
     }
-
     .displayNumberContainer {
         @apply
         grid
@@ -171,7 +188,6 @@
         w-24
         grid
     }
-
     .displayNumber {
         @apply
         text-xs

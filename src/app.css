@@ -45,6 +45,14 @@
 /*    border-red-600*/
 /*}*/
 
+.dbd {
+    @apply
+    absolute
+    top-0
+    left-0
+    z-50
+}
+
 .routeContainer {
     @apply
     pt-10
