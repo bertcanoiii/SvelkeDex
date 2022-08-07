@@ -23,18 +23,6 @@
             {/each}
         </div>
         <!--                    right stats-->
-        <div class="flex flex-col w-1/4 text-start text-sm justify-start pt-5 px-5 dbr">
-            <h1>Moves:</h1>
-<!--            <ul class="list-disc list-inside">-->
-<!--                <li>{pokemonData.moves[0].move.name}</li>-->
-<!--                <li>{pokemonData.moves[1].move.name}</li>-->
-<!--            </ul>-->
-<!--            <h1>Abilities:</h1>-->
-<!--            <ul class="list-disc list-inside">-->
-<!--                <li>{pokemonData.abilities[0].ability.name}</li>-->
-<!--                <li>{pokemonData.abilities[1].ability.name}</li>-->
-<!--            </ul>-->
-        </div>
     </div>
 </div>
 
