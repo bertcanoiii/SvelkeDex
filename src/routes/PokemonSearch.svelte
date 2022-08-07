@@ -40,9 +40,6 @@
             pageNumberListStore.set(tempNumbers);
         }
     }
-
-    let test;
-
     const setPokemonPerPage = newDisplayCount => {
         let tempNewPage;
         let tempFinalStartPage;
@@ -72,7 +69,6 @@
 <!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
 <!--    <p>total pokes: {totalPokemon}</p>-->
 <!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
-<!--    <p>test: {test}</p>-->
 <!--</div>-->
 <!--Main Container-->
 <div class="pt-5">
