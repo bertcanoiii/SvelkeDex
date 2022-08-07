@@ -1,4 +1,5 @@
 <script>
+    import { pop } from 'svelte-spa-router';
     import {fade, fly, slide} from 'svelte/transition';
     import Footer from "../components/Footer.svelte";
     import PokemonDetailCard from "../components/PokemonDetailCard.svelte";
@@ -23,6 +24,7 @@
 <div class="max-w-7xl mx-auto flex justify-center text-slate-800">
 <!--  Inner Main Container  -->
     <div class="h-screen w-screen flex flex-col items-center pt-14">
+
         {#await pokePromise then pokeData}
             <PokemonDetailCard pokemonData="{pokeData}"/>
         {:catch error}
