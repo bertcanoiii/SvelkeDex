@@ -15,11 +15,12 @@
     let pokePromise = getPokemon();
 
 </script>
+
 <!--debug lines-->
-    <!--<div class="absRef text-sm">-->
-    <!--    <h1>pokeID {pokeId}</h1>-->
-    <!--    <h1>pokeID {prevLink}</h1>-->
-    <!--</div>-->
+<!--<div class="dbd">-->
+<!--    <h1>pokeID {pokeId}</h1>-->
+<!--</div>-->
+
 <!--Main Container-->
 <div class="max-w-7xl mx-auto flex justify-center text-slate-800">
 <!--  Inner Main Container  -->

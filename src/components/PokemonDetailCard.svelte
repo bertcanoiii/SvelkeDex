@@ -5,11 +5,11 @@
     import { displayCountDataStore, searchPageNumberStore, searchPageStartNumberStore } from "../store.js";
 </script>
 
-<div class="dbd">
-    <p>displaycount: {$displayCountDataStore}</p>
-    <p>currentpage: {$searchPageNumberStore}</p>
-    <p>currentstartpage: {$searchPageStartNumberStore}</p>
-</div>
+<!--<div class="dbd">-->
+<!--    <p>displaycount: {$displayCountDataStore}</p>-->
+<!--    <p>currentpage: {$searchPageNumberStore}</p>-->
+<!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
+<!--</div>-->
 <div class="max-w-3xl mx-auto flex justify-center pt-20 w-11/12 dbr" transition:fly={{x: -150}}>
     <div class="flex flex-col items-center Background">
         <button class="flex items-center justify-center hover:bg-slate-700 pt-[2px] navButton bg-white/50 rounded-xl w-1/6" on:click={() => pop()}>back</button>
