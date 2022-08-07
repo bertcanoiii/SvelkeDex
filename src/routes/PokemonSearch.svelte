@@ -172,7 +172,6 @@
         sm:w-7
         hover:text-white
         duration-300
-        border
     }
     .displayCountContainer {
         @apply
