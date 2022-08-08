@@ -1,10 +1,8 @@
 <script>
     import { onMount} from "svelte";
     import { fade, fly } from 'svelte/transition';
-    import { pop } from 'svelte-spa-router';
     import {pokemonName, pokemonId, currentPokemonType, currentPokemon} from "../store.js";
 
-    // export let pokemonData;
     export let pokeParamId;
 
     onMount(async () => {
@@ -37,7 +35,7 @@
             </div>
             <!--                left stats-->
             <div class="flex flex-col w-1/2 text-start text-m justify-start sm:pt-20 px-5 dbr transition-all duration-500">
-                <h1 class="text-2xl">Current Available Data on {$pokemonName}</h1>
+                <h1 class="text-2xl">Available Data</h1>
                 <h1>Type: {$currentPokemonType}</h1>
                 <h1>Still working on stuff! </h1>
             </div>

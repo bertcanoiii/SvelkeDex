@@ -3,30 +3,15 @@
     import routes from './routes.js'
     import Router from 'svelte-spa-router'
     import Navbar from './components/Navbar.svelte'
-    import Footer from "./components/Footer.svelte";
     import Loading from "./components/Loading.svelte";
     import {onDestroy} from "svelte";
-
-    // import { onMount } from 'svelte';
-    // import { pokeData, pokemonList } from "./store.js";
-    //
-    // onMount(async () => {
-    //     fetch("https://pokeapi.co/api/v2/type/1/")
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             pokeData.set(data);
-    //         }).catch(error => {
-    //         console.log(error);
-    //         return[];
-    //     });
-    // });
 
     let showMenu = false;
 
     function showMenuButton(){
         showMenu = !showMenu;
     }
+
     //Counter for loading on first visit
     let counter = 0;
     const counterInterval = setInterval(() => counter += 0.5, 500);
