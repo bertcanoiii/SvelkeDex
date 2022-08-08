@@ -70,16 +70,16 @@
 </script>
 
 <!--debug-->
-<div class="dbd">
+<!--<div class="dbd">-->
 <!--    <p>displaycount: {$displayCountDataStore}</p>-->
 <!--    <p>currentpage: {$searchPageNumberStore}</p>-->
 <!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
 <!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
 <!--    <p>total pokes: {totalPokemon}</p>-->
 <!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
-    <p>{$pokemonName}</p>
-    <p>{$pokemonId}</p>
-</div>
+<!--    <p>{$pokemonName}</p>-->
+<!--    <p>{$pokemonId}</p>-->
+<!--</div>-->
 <!--Main Container-->
 <div class="pt-5">
     <div class="flex flex-col items-center backdrop-blur-[1px]"

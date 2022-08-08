@@ -28,10 +28,10 @@
 </script>
 
 <!--debug lines-->
-<div class="dbd">
-    <h1>pokeID {$pokemonName}</h1>
-    <h1>pokeID {$pokemonId}</h1>
-</div>
+<!--<div class="dbd">-->
+<!--    <h1>pokeID {$pokemonName}</h1>-->
+<!--    <h1>pokeID {$pokemonId}</h1>-->
+<!--</div>-->
 
 <!--Main Container-->
 <div class="max-w-7xl mx-auto flex justify-center text-slate-800">
