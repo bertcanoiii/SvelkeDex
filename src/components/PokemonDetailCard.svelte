@@ -1,38 +1,48 @@
 <script>
+    import { onMount} from "svelte";
     import { fade, fly } from 'svelte/transition';
     import { pop } from 'svelte-spa-router';
-    export let pokemonData;
-    import { displayCountDataStore, searchPageNumberStore, searchPageStartNumberStore } from "../store.js";
+    import {pokemonName, pokemonId, currentPokemonType, currentPokemon} from "../store.js";
+
+    // export let pokemonData;
+    export let pokeParamId;
+
+    onMount(async () => {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("inside searchCard")
+                pokemonName.set(data.name)
+                pokemonId.set(data.id)
+                currentPokemonType.set(data.types[0].type.name)
+            }).catch(error => {
+            console.log(error)
+            return [];
+        });
+        currentPokemon.set(pokeParamId);
+    });
+
 </script>
 
-<!--<div class="dbd">-->
-<!--    <p>displaycount: {$displayCountDataStore}</p>-->
-<!--    <p>currentpage: {$searchPageNumberStore}</p>-->
-<!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
-<!--</div>-->
-<div class="max-w-3xl mx-auto flex justify-center pt-20 w-11/12 dbr" transition:fly={{x: -150}}>
-    <div class="flex flex-col items-center Background">
-        <button class="flex items-center justify-center hover:bg-slate-700 pt-[2px] navButton bg-white/50 rounded-xl w-1/6" on:click={() => pop()}>back</button>
-        <div class="flex sm:flex-row sm:justify-between w-full dbr">
-        <!--            Pic Side-->
-        <div class="flex flex-col w-1/2 items-center justify-start dbr">
-            <h1 class="py-2 dbr text-3xl" >{pokemonData.name}</h1>
-            <div class="bg-blue-300/70 rounded-full">
-                <img class="w-60" src="images/official-artwork/{pokemonData.id}.png" alt="pic of pokemon"
-                     in:fade={{delay: 300, duration: 1000}}
-                >
+<div class="max-w-3xl mx-auto flex flex-col justify-start h-screen w-11/12 dbr" transition:fly={{x: -150}}>
+    <div class="flex flex-col Background">
+        <div class="flex sm:flex-row sm:justify-between w-full h-full dbr">
+            <!--            Pic Side-->
+            <div class="group flex flex-col w-1/2 items-center dbr">
+                <h1 class="dbr text-center w-full text-3xl" >{$pokemonName}</h1>
+                <div class="relative flex justify-center items-center">
+                    <div class="flex justify-center bg-blue-300 w-9/12 h-full absolute -z-10 border-blue-300 border rounded-full dbr group-hover:bg-transparent group-hover:border-8 group-hover:border-blue-600 transition-all duration-500  "></div>
+                    <img class="flex w-9/12 dbr group-hover:scale-105 group-hover:rotate-3 duration-500 " src="images/official-artwork/{$pokemonId}.png" alt="pic of pokemon" in:fade={{delay: 300, duration: 1000}}>
+                </div>
             </div>
+            <!--                left stats-->
+            <div class="flex flex-col w-1/2 text-start text-m justify-start sm:pt-20 px-5 dbr transition-all duration-500">
+                <h1 class="text-2xl">Current Available Data on {$pokemonName}</h1>
+                <h1>Type: {$currentPokemonType}</h1>
+                <h1>Still working on stuff! </h1>
+            </div>
+            <!--                    right stats-->
         </div>
-        <!--                left stats-->
-        <div class="flex flex-col w-1/2 text-start text-m justify-start pt-5 px-5 dbr">
-            <h1 class="text-2xl">Current Available Data on {pokemonData.name}</h1>
-            <h1>Type: {pokemonData.types[0].type.name}</h1>
-            {#each pokemonData.stats as item, i}
-                <h1>{item.stat.name}: {item.base_stat}</h1>
-            {/each}
-        </div>
-        <!--                    right stats-->
-    </div>
     </div>
 </div>
 

@@ -1,43 +1,60 @@
 <script>
     import { onMount } from 'svelte';
     import { fade } from 'svelte/transition';
+    import {currentPokemon, currentPokemonType, pokemonId, pokemonName} from "../store.js";
 
-    export let pokemonName;
-    export let pokePicPath;
-    export let pokeId;
+    export let pokemonCardName;
+    export let pokeCardPicPath;
+    export let pokeCardId;
 
-    let detailUrl = `#/pokemon/${pokeId}`;
-
+    let detailUrl = `#/pokemon/${pokeCardId}`;
 
     onMount(async () => {
-        if (pokemonName.length > 12) {
-            pokemonName = pokemonName.slice(0, 12);
+        if (pokemonCardName.length > 12) {
+            pokemonCardName = pokemonCardName.slice(0, 12);
         }
     })
 
     onMount(async () => {
-        if (pokemonName.length > 12) {
-            pokemonName = pokemonName.slice(0, 12);
+        if (pokemonCardName.length > 12) {
+            pokemonCardName = pokemonCardName.slice(0, 12);
         }
     })
+
+    const getPokemon2 = async testNum => {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${testNum}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("inside searchCard")
+                pokemonName.set(data.name)
+                pokemonId.set(data.id)
+                currentPokemonType.set(data.types[0].type.name)
+            }).catch(error => {
+            console.log(error)
+            return [];
+        });
+        currentPokemon.set(testNum);
+    };
 
 </script>
 
 <div class="w-28 relative group">
-    <a href="{detailUrl}">
-        <div class="flex flex-col m-1 items-center cardBackground">
-            <!--            Pokemon Name-->
-            <div class="w-full text-center items-center devBorder">
-                <h3 class="nameText">{pokemonName}</h3>
+    <button on:click={() => getPokemon2(pokeCardId)}>
+        <a href="{detailUrl}">
+            <div class="flex flex-col m-1 items-center cardBackground">
+                <!--            Pokemon Name-->
+                <div class="w-full text-center items-center devBorder">
+                    <h3 class="nameText">{pokemonCardName}</h3>
+                </div>
+                <!--            Pokemon Pic-->
+                <div class="flex flex-row justify-center items-center m-2 pokePicBackground">
+            <!--        <p class="text-slate-700 font-bold">ID:{pokemon.url.substring(34, pokemon.url.length - 1)}</p>-->
+                    <div class="absolute w-24 h-24 -z-50 border rounded-full group-hover:block group-hover:border-blue-600 group-hover:border-8 duration-500"></div>
+                    <img class="devBorder group-hover:-translate-y-0.5 group-hover:scale-150 hover:rotate-3 duration-300 group-hover:a" src="{pokeCardPicPath}" alt="images/pokeball_pic.png"/>
+                </div>
             </div>
-            <!--            Pokemon Pic-->
-            <div class="flex flex-row justify-center items-center m-2 pokePicBackground">
-        <!--        <p class="text-slate-700 font-bold">ID:{pokemon.url.substring(34, pokemon.url.length - 1)}</p>-->
-                <div class="absolute w-24 h-24 -z-50 border rounded-full group-hover:block group-hover:border-blue-600 group-hover:border-8 duration-500"></div>
-                <img class="devBorder group-hover:-translate-y-0.5 group-hover:scale-150 hover:rotate-3 duration-300 group-hover:a" src="{pokePicPath}" alt="images/pokeball_pic.png"/>
-            </div>
-        </div>
-    </a>
+        </a>
+    </button>
 </div>
 
 <style>
@@ -73,4 +90,5 @@
         ease-linear
         duration-200
     }
+
 </style>

@@ -1,6 +1,13 @@
 <script>
     import { fade } from 'svelte/transition';
-    import { displayCountDataStore, searchPageNumberStore, searchPageStartNumberStore, pageNumberListStore } from "../store.js";
+    import {
+        displayCountDataStore,
+        searchPageNumberStore,
+        searchPageStartNumberStore,
+        pageNumberListStore,
+        pokemonName,
+        pokemonId, currentPokemonType, currentPokemon
+    } from "../store.js";
     import pokemonData from "../pokemonData.js";
     import sprites from "../sprites.js";
     import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
@@ -59,17 +66,20 @@
         displayCountDataStore.set(newDisplayCount);
     }
 
+
 </script>
 
 <!--debug-->
-<!--<div class="dbd">-->
+<div class="dbd">
 <!--    <p>displaycount: {$displayCountDataStore}</p>-->
 <!--    <p>currentpage: {$searchPageNumberStore}</p>-->
 <!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
 <!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
 <!--    <p>total pokes: {totalPokemon}</p>-->
 <!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
-<!--</div>-->
+    <p>{$pokemonName}</p>
+    <p>{$pokemonId}</p>
+</div>
 <!--Main Container-->
 <div class="pt-5">
     <div class="flex flex-col items-center backdrop-blur-[1px]"
@@ -149,13 +159,13 @@
                         {#if i >= pokeRangeLow && i < pokeRangeHigh }
                             <!--Pokemon Cards-->
                             {#if spriteArray.includes(`${pokemon.id}.png`)}
-                                <PokemonSearchCard pokePicPath="images/main_sprites/{pokemon.id}.png"
-                                                   pokemonName="{pokemon.identifier}"
-                                                   pokeId="{pokemon.id}"/>
+                                <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                                   pokemonCardName="{pokemon.identifier}"
+                                                   pokeCardId="{pokemon.id}"/>
                             {:else}
-                                <PokemonSearchCard pokePicPath="images/main_sprites/0.png"
-                                                   pokemonName="{pokemon.identifier}"
-                                                   pokeId="{pokemon.id}"/>
+                                <PokemonSearchCard pokeCardPicPath="images/main_sprites/0.png"
+                                                   pokemonCardName="{pokemon.identifier}"
+                                                   pokeCardId="{pokemon.id}"/>
                             {/if}
                         {/if}
                     {/each}
