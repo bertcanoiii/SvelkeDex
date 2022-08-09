@@ -87,7 +87,7 @@
         <div class="flex flex-col h-screen max-w-5xl">
             <!--    Page Title-->
             <div class="sticky top-0 z-10 backdrop-blur-sm">
-                <h1 class="pt-6 pageTitle">Currently Discovered Pokemon</h1>
+                <h1 class="pt-11 pageTitle">Currently Discovered Pokemon</h1>
                 <!--    Navigation Button Containers-->
                 <div class="flex flex-col justify-center text-xl text-slate-700 font-bold
                             transition-transform ease-in duration-500">

@@ -14,6 +14,9 @@ export const lastPokemonId = writable(10249);
 
 export const apiStatData = writable([]);
 export const apiMoveData = writable([]);
+export const apiAbilityData = writable([]);
+export const apiWeightData = writable([]);
+export const apiHeightData = writable([]);
 
 // export const statList = derived(apiStatData, ($apiStatData) => {
 //     if ($apiStatData.stats) {

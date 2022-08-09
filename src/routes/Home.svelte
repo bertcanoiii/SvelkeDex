@@ -4,7 +4,7 @@
 
 </script>
 
-<div class="relative flex flex-col min-h-screen items-center max-w-7xl mx-auto devBorder">
+<div class="relative flex flex-col min-h-screen items-center max-w-5xl mx-auto devBorder">
     <div class="flex flex-col items-center justify-center h-screen w-screen">
         <div class="text-6xl text-center text-slate-700" in:fade={{delay: 900}}>
             <h1>Welcome to SvelkeDex!</h1>
