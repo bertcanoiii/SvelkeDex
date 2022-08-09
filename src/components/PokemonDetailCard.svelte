@@ -69,7 +69,7 @@
                                 duration-200"
                              src="images/official-artwork/{$pokemonId}.png"
                              alt="pic of pokemon"
-                             in:fly={{x: -200, delay: 800}}>
+                             in:fly={{x: -200, delay: 600}}>
                     </div>
                 </div>
 <!--                Global Stat Container-->
@@ -88,7 +88,7 @@
                                     hover:border-l-2
                                     hover:shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 900}}
+                             in:fade={{delay: 700}}
                         >
                             <table class="table-auto statTable">
                                 <thead class="">
@@ -117,7 +117,7 @@
                                     hover:border-r-2
                                     hover:shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 1000}}
+                             in:fade={{delay: 800}}
                         >
                             <table class="table-auto statTable">
                                 <thead class="">
@@ -157,7 +157,7 @@
                                     hover:border-l-2
                                     shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 1100}}
+                             in:fade={{delay: 900}}
                         >
                             <table class="table-auto statTable ">
                                 <thead class="">
@@ -186,7 +186,7 @@
                                     hover:border-r-2
                                     shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 1200}}
+                             in:fade={{delay: 1000}}
                         >
                             <table class="table-auto statTable">
                                 <thead class="">
