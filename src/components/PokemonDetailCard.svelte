@@ -35,6 +35,7 @@
         currentPokemon.set(pokeParamId);
     });
 
+
 </script>
 
 <div class="max-w-5xl mx-auto flex flex-col justify-start w-11/12 dbr overflow-x-hidden overflow-y-auto">
@@ -42,7 +43,7 @@
         {#key $currentPokemon}
             <div class="dbr Background
                     flex flex-col justify-center w-full space-y-4"
-                    in:fly={{delay: 100, x: 100}}
+                 in:fly={{x: -50}}
             >
                 <!--        Pic Side-->
                 <div class="flex flex-col justify-center items-center dbr">
@@ -59,7 +60,7 @@
                                 group-hover:scale-90
                                 transition-all
                                 duration-500"
-                             in:fly={{x: 200, delay: 400}}>
+                                in:fly={{x: -50, delay: 600}}>
                         </div>
                         <img class="flex dbr
                                 w-8/12
@@ -69,7 +70,8 @@
                                 duration-200"
                              src="images/official-artwork/{$pokemonId}.png"
                              alt="pic of pokemon"
-                             in:fly={{x: -200, delay: 600}}>
+                             in:fly={{x: -50, delay: 900}}
+                        >
                     </div>
                 </div>
 <!--                Global Stat Container-->
@@ -88,7 +90,7 @@
                                     hover:border-l-2
                                     hover:shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 700}}
+                             in:fly={{x: -50, delay: 500}}
                         >
                             <table class="table-auto statTable">
                                 <thead class="">
@@ -117,7 +119,7 @@
                                     hover:border-r-2
                                     hover:shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 800}}
+                             in:fly={{x: -50, delay: 400}}
                         >
                             <table class="table-auto statTable">
                                 <thead class="">
@@ -157,7 +159,7 @@
                                     hover:border-l-2
                                     shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 900}}
+                             in:fly={{x: -50, delay: 300}}
                         >
                             <table class="table-auto statTable ">
                                 <thead class="">
@@ -186,7 +188,7 @@
                                     hover:border-r-2
                                     shadow-lg
                                     sm:w-1/3"
-                             in:fade={{delay: 1000}}
+                             in:fly={{x: -50, delay: 200}}
                         >
                             <table class="table-auto statTable">
                                 <thead class="">
