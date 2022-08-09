@@ -25,7 +25,7 @@
 {#if fadeLoader}
     <Loading/>
 {:else}
-    <main class="">
+    <main class="relative">
         <div class="-z-50" style="background-image: url('/images/background2.png');
                    background-repeat: no-repeat;
                    background-position: top;
@@ -34,8 +34,8 @@
                  in:fade={{delay: 300}}>
                 <div class="flex flex-col w-screen mx-auto">
                     <div class="flex flex-col items-center max-w-5xl mx-auto devBorder">
-                        <button class="z-10" on:click={showMenuButton} in:fade={{delay: 500, duration:500}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="devBorder stroke-slate-700 hover:stroke-white duration-200 h-8 w-10 absolute top-2 right-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <button class="z-20" on:click={showMenuButton} in:fade={{delay: 500, duration:500}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="devBorder stroke-slate-700 hover:stroke-white duration-200 h-8 w-10 absolute top-2 right-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>

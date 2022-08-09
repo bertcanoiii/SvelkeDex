@@ -9,7 +9,7 @@
         <div class="text-6xl text-center text-slate-700" in:fade={{delay: 900}}>
             <h1>Welcome to SvelkeDex!</h1>
         </div>
-        <div class="flex flex-col my-5 px-2 sm:px-0 overflow-scroll homeText" in:fade={{delay: 1000}}>
+        <div class="flex flex-col my-5 px-2 sm:px-0 overflow-y-auto homeText" in:fade={{delay: 1000}}>
             <div class="flex flex-col space-y-5 sm:flex-row sm:space-x-5 sm:space-y-0  devBorder"
                  in:fade={{delay: 1200}}>
                 <a class="flex flex-col items-center justify-center linkBackground devBorder"

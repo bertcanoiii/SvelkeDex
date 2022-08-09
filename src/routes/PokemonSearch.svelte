@@ -81,10 +81,10 @@
 <!--    <p>{$pokemonId}</p>-->
 <!--</div>-->
 <!--Main Container-->
-<div class="pt-5">
+<div class="">
     <div class="flex flex-col items-center backdrop-blur-[1px]"
          in:fade={{delay: 300}}>
-        <div class="flex flex-col h-screen max-w-7xl">
+        <div class="flex flex-col h-screen max-w-5xl">
             <!--    Page Title-->
             <div class="sticky top-0 z-10 backdrop-blur-sm">
                 <h1 class="pt-6 pageTitle">Currently Discovered Pokemon</h1>
@@ -133,10 +133,10 @@
                                         </div>
                                         <div class="dbr flex flex-row">
                                             <ul class="displayNumberContainer">
-                                                <li class="displayNumber {$displayCountDataStore === 10 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(10) }>10</button></li>
-                                                <li class="displayNumber {$displayCountDataStore === 25 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(25) }>25</button></li>
-                                                <li class="displayNumber {$displayCountDataStore === 50 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(50) }>50</button></li>
-                                                <li class="displayNumber {$displayCountDataStore === 100 ? 'bg-white/70' : ''}"><button on:click={() => setPokemonPerPage(100) }>100</button></li>
+                                                <button on:click={() => setPokemonPerPage(10) }><li class="displayNumber {$displayCountDataStore === 10 ? 'bg-white/70' : ''}">10</li></button>
+                                                <button on:click={() => setPokemonPerPage(25) }><li class="displayNumber {$displayCountDataStore === 25 ? 'bg-white/70' : ''}">25</li></button>
+                                                <button on:click={() => setPokemonPerPage(50) }><li class="displayNumber {$displayCountDataStore === 50 ? 'bg-white/70' : ''}">50</li></button>
+                                                <button on:click={() => setPokemonPerPage(100) }><li class="displayNumber {$displayCountDataStore === 100 ? 'bg-white/70' : ''}">100</li></button>
                                             </ul>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <!--Pokemon Card Container-->
-            <div class="overflow-scroll h-screen">
+            <div class="overflow-y-auto h-screen">
                 <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
                      in:fade={{delay: 500}}>
                     <!--    Loop for each pokemon card-->
