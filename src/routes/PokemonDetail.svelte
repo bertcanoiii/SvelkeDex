@@ -29,9 +29,9 @@
 </script>
 
 <!--debug lines-->
-<div class="dbd">
-    <h1>pokeID {$currentPokemon}</h1>
-</div>
+<!--<div class="dbd">-->
+<!--    <h1>pokeID {$currentPokemon}</h1>-->
+<!--</div>-->
 
 <!--Main Container-->
 <div class="max-w-5xl mx-auto flex justify-center text-slate-800">
