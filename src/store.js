@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable,derived } from "svelte/store";
 
 export const displayCountDataStore = writable(25);
 export const searchPageNumberStore = writable(1);
@@ -10,4 +10,15 @@ export const pokemonId = writable();
 export const currentPokemon = writable();
 export const currentPokemonType = writable();
 export const totalPokemon = writable(1154);
+
+export const apiStatData = writable([]);
+export const apiMoveData = writable([]);
+
+// export const statList = derived(apiStatData, ($apiStatData) => {
+//     if ($apiStatData.stats) {
+//         return $apiStatData.stats.map(statObject => stat.base_stat );
+//     }
+//     return [];
+// })
+
 

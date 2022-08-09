@@ -1,5 +1,5 @@
 <script>
-    import { fade } from 'svelte/transition';
+    import { fade, fly } from 'svelte/transition';
     import {
         displayCountDataStore,
         searchPageNumberStore,
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <!--Pokemon Card Container-->
-            <div class="overflow-y-auto h-screen">
+            <div class="overflow-x-hidden overflow-y-auto h-screen">
                 <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
                      in:fade={{delay: 500}}>
                     <!--    Loop for each pokemon card-->

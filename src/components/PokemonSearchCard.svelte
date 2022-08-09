@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { fade } from 'svelte/transition';
+    import { fly, fade } from 'svelte/transition';
     import {currentPokemon, currentPokemonType, pokemonId, pokemonName} from "../store.js";
 
     export let pokemonCardName;
@@ -38,7 +38,7 @@
 
 </script>
 
-<div class="w-28 relative group">
+<div class="w-28 relative group" in:fly={{x: 10, delay: 50}}>
     <button on:click={() => getPokemon2(pokeCardId)}>
         <a href="{detailUrl}">
             <div class="flex flex-col m-1 items-center cardBackground">
