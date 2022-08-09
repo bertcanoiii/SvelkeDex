@@ -10,6 +10,7 @@ export const pokemonId = writable();
 export const currentPokemon = writable();
 export const currentPokemonType = writable();
 export const totalPokemon = writable(1154);
+export const lastPokemonId = writable(10249);
 
 export const apiStatData = writable([]);
 export const apiMoveData = writable([]);

@@ -35,7 +35,7 @@
                 <div class="relative flex justify-center items-center">
                     <div class="flex justify-center bg-blue-300 w-9/12 h-full absolute -z-10 border-blue-300 border rounded-full dbr group-hover:bg-transparent group-hover:border-8 group-hover:border-blue-600 transition-all duration-500"></div>
                     <img class="flex w-9/12 dbr group-hover:scale-105 group-hover:rotate-3 duration-500 " src="images/official-artwork/{$pokemonId}.png" alt="pic of pokemon"
-                    in:fly={{x: -200, delay: 400}}>
+                    in:fly={{x: -200, delay: 600}}>
                 </div>
             </div>
             <!--                left stats-->

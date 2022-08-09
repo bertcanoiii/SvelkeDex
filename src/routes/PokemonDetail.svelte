@@ -4,7 +4,7 @@
     import {fade, fly, slide} from 'svelte/transition';
     import Footer from "../components/Footer.svelte";
     import PokemonDetailCard from "../components/PokemonDetailCard.svelte";
-    import {pokemonName, pokemonId, currentPokemon, currentPokemonType, totalPokemon, apiStatData} from "../store.js";
+    import {pokemonName, pokemonId, currentPokemon, currentPokemonType, totalPokemon, apiStatData, lastPokemonId} from "../store.js";
 
     export let params = {};
     let pokeId = parseInt(params.id, 10);
@@ -29,10 +29,9 @@
 </script>
 
 <!--debug lines-->
-<!--<div class="dbd">-->
-<!--    <h1>pokeID {$apiStatData}</h1>-->
-<!--    <h1>pokeID {$apiStatData[0].base_stat}</h1>-->
-<!--</div>-->
+<div class="dbd">
+    <h1>pokeID {$currentPokemon}</h1>
+</div>
 
 <!--Main Container-->
 <div class="max-w-5xl mx-auto flex justify-center text-slate-800">
@@ -46,7 +45,7 @@
                     Previous
                 </button>
                 <button class="navButton"
-                        on:click={() => getPokemon2($currentPokemon + 1 > $totalPokemon ? $currentPokemon : $currentPokemon + 1)}
+                        on:click={() => getPokemon2($currentPokemon + 1 > $lastPokemonId ? $currentPokemon : $currentPokemon + 1)}
                         on:click={push(`#/pokemon/${$currentPokemon}`)}>
                     Next
                 </button>
