@@ -1,6 +1,6 @@
 <script>
   import {onMount} from "svelte";
-  import {fade, fly} from 'svelte/transition';
+  import {fly} from 'svelte/transition';
   import {
     pokemonName,
     pokemonId,
@@ -10,7 +10,8 @@
     apiMoveData,
     apiAbilityData,
     apiWeightData,
-    apiHeightData
+    apiHeightData,
+    lastPokemonId
   } from "../store.js";
   
   export let pokeParamId;
@@ -19,7 +20,7 @@
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
           .then(response => response.json())
           .then(data => {
-            console.log("inside searchCard")
+            console.log("inside PokemonDetailCard.svelte")
             pokemonName.set(data.name)
             pokemonId.set(data.id)
             currentPokemonType.set(data.types[0].type.name)
@@ -28,20 +29,35 @@
             apiAbilityData.set(data.abilities)
             apiWeightData.set(data.weight)
             apiHeightData.set(data.height)
-          }).catch(error => {
+      }).catch(error => {
       console.log(error)
       return [];
     });
     currentPokemon.set(pokeParamId);
   });
-
+  
+  // let waiting = 0;
+  //
+  // const notifyLoaded = () => {
+  //   console.log("loaded!")
+  // }
+  //
+  // const onload = el => {
+  //   waiting++
+  //   el.addEventListener('load', () => {
+  //     waiting--
+  //     if (waiting === 0) {
+  //       notifyLoaded()
+  //     }
+  //   })
+  // }
 
 </script>
 
 <div class="max-w-5xl mx-auto flex flex-col justify-start w-11/12 dbr overflow-x-hidden overflow-y-auto">
   <div class="flex flex-col">
     {#key $currentPokemon}
-      <div class="dbr Background -z-20
+      <div class="relative dbr Background z-0
                   flex flex-col justify-center w-full space-y-4"
            in:fly={{x: -50}}
       >
@@ -72,7 +88,7 @@
                         duration-200"
                  src="images/official-artwork/{$pokemonId}.png"
                  alt="pic of pokemon"
-                 in:fly={{x: -50, delay: 900}}
+                 in:fly={{x: -50, delay: 800}}
             >
           </div>
         </div>
