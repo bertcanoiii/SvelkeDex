@@ -1,6 +1,7 @@
 <script>
-  import {onMount} from "svelte";
-  import {fly} from 'svelte/transition';
+  import {onDestroy, onMount} from "svelte";
+  import {fade, fly} from 'svelte/transition';
+  import Loading from "./Loading.svelte";
   import {
     pokemonName,
     pokemonId,
@@ -36,22 +37,6 @@
     currentPokemon.set(pokeParamId);
   });
   
-  // let waiting = 0;
-  //
-  // const notifyLoaded = () => {
-  //   console.log("loaded!")
-  // }
-  //
-  // const onload = el => {
-  //   waiting++
-  //   el.addEventListener('load', () => {
-  //     waiting--
-  //     if (waiting === 0) {
-  //       notifyLoaded()
-  //     }
-  //   })
-  // }
-
 </script>
 
 <div class="max-w-5xl mx-auto flex flex-col justify-start w-11/12 dbr overflow-x-hidden overflow-y-auto">
@@ -114,8 +99,8 @@
                 <thead class="">
                 <tr class="text-lg border-b border-slate-600">
                   <th class="border-slate-600 border-r
-                             text-right w-1/2 pr-2">Stat</th>
-                  <th class="text-left w-1/2 pl-2">Base</th>
+                             text-right w-2/3 pr-2">Stat</th>
+                  <th class="text-left w-1/3 pl-2">Base</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -142,8 +127,8 @@
               <table class="table-auto">
                 <thead class="">
                 <tr class="text-lg border-b border-slate-600">
-                  <th class="border-slate-600 border-r text-right w-1/2 pr-2">Traits</th>
-                  <th class="text-left w-1/2 pl-2">Base</th>
+                  <th class="border-slate-600 border-r text-right w-1/3 px-2">Traits</th>
+                  <th class="text-left w-2/3 pl-2">Base</th>
                 </tr>
                 </thead>
                 <tbody>

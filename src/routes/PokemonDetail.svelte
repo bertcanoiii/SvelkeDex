@@ -57,7 +57,6 @@
     <div class="max-w-5xl w-11/12 pt-10 mx-auto dbr">
       <h1 class="flex justify-center text-4xl text-center text-slate-700 dbr">{$pokemonName}</h1>
       <div class="flex justify-between w-full mb-2 dbr">
-        
         <button class="prevButton dbr"
                 on:click={() => getPokemon2($currentPokemon - 1 < 1 ? $currentPokemon : $currentPokemon - 1)}
                 on:click={push(`#/pokemon/${$currentPokemon}`)}
