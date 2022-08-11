@@ -18,7 +18,7 @@ export const apiAbilityData = writable([]);
 export const apiWeightData = writable([]);
 export const apiHeightData = writable([]);
 
-export const userSearchStore = writable("");
+export const userSearchStore = writable();
 
 // export const statList = derived(apiStatData, ($apiStatData) => {
 //     if ($apiStatData.stats) {

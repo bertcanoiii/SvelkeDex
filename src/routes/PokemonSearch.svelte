@@ -1,5 +1,5 @@
 <script>
-  import {fade, fly} from 'svelte/transition';
+  import {fade, slide} from 'svelte/transition';
   import {
     displayCountDataStore,
     searchPageNumberStore,
@@ -26,7 +26,7 @@
   
   //search info
   let userSearchInput = "";
-  // $: userSearchStore.set(userSearchInput)
+  $: userSearchStore.set(userSearchInput)
   
   const setCurrentPage = newPage => {
           if (newPage > totalPages) {
@@ -126,32 +126,32 @@
             </div>
             <!--    Navigation Button Containers-->
             <div class="flex flex-col justify-center dbr">
-              <div class="flex flex-col justify-center devBorder">
+              <div class="flex flex-col justify-center devBorder py-1">
                 <!--        Previous/Next Button Container-->
-                <div class="flex flex-row justify-between devBorder">
+                <div class="relative flex flex-row justify-between items-end dbr devBorder">
                   <!--            Previous Button(s)-->
-                  <button class="w-1/8 navButton devBorder dbr"
+                  <button class="w-1/8 navButton dbr"
                           on:click|preventDefault={() => setCurrentPage($searchPageNumberStore - 1)}
                   >
                     Previous
                   </button>
                   <!--            Search Input -->
-                  <div class="flex items-center w-2/5 lg:w-1/3 transition-all duration-500 dbr">
+                  <div class="flex items-end w-2/5 lg:w-1/3 pb-1 transition-all duration-500 dbr">
                     <input class="flex
-                                  w-11/12 h-2/3
+                                  w-full
                                   rounded-md pl-2 pt-[2px]
                                   text-sm
-                                  placeholder:text-xs
+                                  placeholder:text-sm
                                   placeholder:text-slate-300
                                   focus:outline-none
                                   focus:border-blue-500
                                   focus:border-2"
-                           placeholder="Search by name!"
+                           placeholder="Search by name"
                            type="text"
                            bind:value={userSearchInput}>
                   </div>
                   <!--            Set Display Count-->
-                  <div class="displayCountContainer w-1/4 dbr">
+                  <div class="displayCountContainer w-1/4 pb-1 dbr">
                     <div class="dbr">
                       <h1 class="text-xs">Display Count: </h1>
                     </div>
@@ -189,9 +189,9 @@
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
           {#each allPokemon as pokemon, i}
-            {#if userSearchInput.length > 1}
+            {#if $userSearchStore.length > 1}
                 <!--Pokemon Cards-->
-              {#if pokemon.identifier.includes(userSearchInput)}
+              {#if pokemon.identifier.includes($userSearchStore)}
                 {#if spriteArray.includes(`${pokemon.id}.png`)}
                   <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
                                      pokemonCardName="{pokemon.identifier}"
@@ -219,7 +219,9 @@
           {/each}
         </div>
       </div>
-      <Footer/>
+      <div class="absolute bottom-0 w-screen max-w-5xl" in:slide={{delay: 500, duration: 1000}}>
+        <Footer/>
+      </div>
     </div>
   </div>
 </div>
