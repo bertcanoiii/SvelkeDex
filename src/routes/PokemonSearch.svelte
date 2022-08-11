@@ -1,11 +1,13 @@
 <script>
+  import {onMount, afterUpdate} from "svelte";
   import {fade, slide} from 'svelte/transition';
+  import {push} from 'svelte-spa-router';
   import {
     displayCountDataStore,
     searchPageNumberStore,
     searchPageStartNumberStore,
     pageNumberListStore,
-    userSearchStore, pokemonToDisplayDataStore
+    userSearchStore, filteredPokemon
   } from "../store.js";
   import pokemonData from "../pokemonData.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
@@ -19,17 +21,13 @@
   $: finalPagesStartPage = totalPages - numberOfPages + 1;
   $: pokeRangeHigh = $searchPageNumberStore * $displayCountDataStore;
   $: pokeRangeLow = pokeRangeHigh - $displayCountDataStore;
-  
-  function checkSearch(pokemonObject) {
-    return pokemonObject.identifier.includes(userSearchInput);
-  }
+
+  export let params = {};
+  let searchParams = params.search;
   
   //search info
-  let filteredPokemon = [];
   let userSearchInput = "";
   $: userSearchStore.set(userSearchInput)
-  $: filteredPokemon = pokemonInitialData.filter(pokemon => pokemon.identifier.includes(userSearchInput))
-  $: userSearchInput2 = userSearchInput
   
   const setCurrentPage = newPage => {
           if (newPage > totalPages) {
@@ -55,7 +53,6 @@
             pageNumberListStore.set(tempNumbers);
           }
         }
-        
   const setPokemonPerPage = newDisplayCount => {
     let tempNewPage;
     let tempFinalStartPage;
@@ -74,19 +71,32 @@
     
     displayCountDataStore.set(newDisplayCount);
   }
+  const handleSubmitSearch = () => {
+    push(`#/pokemon/search/${$userSearchStore}`)
+  }
 
-
+  onMount(() => {
+    console.log("mounted")
+    if (searchParams){
+      let tempList = [];
+      for (let i = 0; i < pokemonInitialData.length; i++) {
+        if (pokemonInitialData[i].identifier.includes(searchParams)) {
+          tempList.push(pokemonInitialData[i])
+        }
+      }
+      filteredPokemon.set(tempList)
+      console.log("has params")
+    }
+  })
+  
 </script>
 
 <!--debug-->
-<div class="dbd h-5">
-  <p>{userSearchInput}</p>
-  <p>{userSearchInput2}</p>
-  {#each filteredPokemon as pokemon, i}
-    {#if i < 5}
-      <p class="text-xs">{i}: {pokemon.identifier}</p>
-    {/if}
-  {/each}
+<!--<div class="dbd h-5">-->
+<!--  <p>{userSearchInput}</p>-->
+<!--  <p>params: {searchParams}</p>-->
+<!--  <a href="#/pokemon/search/{userSearchInput}">go</a>-->
+<!--  <p>{$filteredPokemon.length}</p>-->
 <!--    <p>currentpage: {$searchPageNumberStore}</p>-->
 <!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
 <!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
@@ -94,7 +104,7 @@
 <!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
 <!--    <p>{$userSearchStore}</p>-->
 <!--    <p>{userSearchInput}</p>-->
-</div>
+<!--</div>-->
 
 <!--Main Container-->
 <div class="">
@@ -146,20 +156,26 @@
                     Previous
                   </button>
                   <!--            Search Input -->
-                  <div class="flex items-end w-2/5 lg:w-1/3 pb-1 transition-all duration-500 dbr">
-                    <input class="flex
-                                  w-full
-                                  rounded-md pl-2 pt-[2px]
-                                  text-sm
-                                  placeholder:text-sm
-                                  placeholder:text-slate-300
-                                  focus:outline-none
-                                  focus:border-blue-500
-                                  focus:border-2"
-                           placeholder="Search by name"
-                           type="text"
-                           bind:value={userSearchInput}>
-                  </div>
+                  <form class="flex items-center bg-white rounded-xl justify-center w-2/5 lg:w-1/3 mb-1 transition-all duration-500 dbr" on:submit|preventDefault={handleSubmitSearch}>
+                    <div class="flex items-center bg-white rounded-xl justify-center w-full transition-all duration-500 dbr">
+                      <input class="flex
+                                    dbr
+                                    w-5/6
+                                    rounded-xl pl-2 pt-[2px]
+                                    text-sm
+                                    placeholder:text-sm
+                                    placeholder:text-slate-300
+                                    focus:outline-none"
+                             placeholder="Search by name"
+                             type="text"
+                             bind:value={userSearchInput}>
+                      <a class="flex h-fit mt-[1px] dbr" href="#/pokemon/search/{userSearchInput}">
+                        <button class="text-xs px-2" type="submit">
+                          Search!
+                        </button>
+                      </a>
+                    </div>
+                  </form>
                   <!--            Set Display Count-->
                   <div class="displayCountContainer w-1/4 pb-1 dbr">
                     <div class="dbr">
@@ -198,26 +214,34 @@
         <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-          {#each allPokemon as pokemon, i}
-            {#if $userSearchStore.length > 1}
-                <!--Pokemon Cards-->
-              {#if pokemon.identifier.includes($userSearchStore)}
-                <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                   pokemonCardName="{pokemon.identifier}"
-                                   pokeCardId="{pokemon.id}"/>
+          {#if searchParams}
+            {#each $filteredPokemon as pokemon, i}
+              <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                 pokemonCardName="{pokemon.identifier}"
+                                 pokeCardId="{pokemon.id}"/>
+            {/each}
+          {:else}
+            {#each allPokemon as pokemon, i}
+              {#if $userSearchStore.length > 1}
+                  <!--Pokemon Cards-->
+                {#if pokemon.identifier.includes($userSearchStore)}
+                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                     pokemonCardName="{pokemon.identifier}"
+                                     pokeCardId="{pokemon.id}"/>
+                {/if}
+              {:else}
+                {#if i >= pokeRangeLow && i < pokeRangeHigh }
+                  <!--ORIGINAL Pokemon Cards-->
+                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                     pokemonCardName="{pokemon.identifier}"
+                                     pokeCardId="{pokemon.id}"/>
+                {/if}
               {/if}
-            {:else}
-              {#if i >= pokeRangeLow && i < pokeRangeHigh }
-                <!--ORIGINAL Pokemon Cards-->
-                <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                   pokemonCardName="{pokemon.identifier}"
-                                   pokeCardId="{pokemon.id}"/>
-              {/if}
-            {/if}
-          {/each}
+            {/each}
+          {/if}
         </div>
       </div>
-      <div class="absolute bottom-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
+      <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
         <Footer/>
       </div>
     </div>

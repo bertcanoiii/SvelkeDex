@@ -56,13 +56,13 @@
       <div class="flex justify-between w-full mb-2 dbr">
         <button class="prevButton dbr"
                 on:click={() => getPokemon2($currentPokemon - 1 < 1 ? $currentPokemon : $currentPokemon - 1)}
-                on:click={push(`#/pokemon/${$currentPokemon}`)}
+                on:click={push(`#/pokemon/detail/${$currentPokemon}`)}
         >
           Previous
         </button>
         <button class="nextButton dbr"
                 on:click={() => getPokemon2($currentPokemon + 1 > $lastPokemonId ? $currentPokemon : $currentPokemon + 1)}
-                on:click={push(`#/pokemon/${$currentPokemon}`)}>
+                on:click={push(`#/pokemon/detail/${$currentPokemon}`)}>
           Next
         </button>
       </div>

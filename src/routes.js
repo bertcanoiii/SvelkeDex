@@ -7,9 +7,10 @@ import PokemonDetail from "./routes/PokemonDetail.svelte";
 export default {
     '/': Home,
     '/welcome': Home,
-    '/pokemon/:id': wrap({
+    '/pokemon/detail/:id': wrap({
         asyncComponent: () => import('./routes/PokemonDetail.svelte')
     }),
+    '/pokemon/search/:search': PokemonSearch,
     '/pokemon': PokemonSearch,
     //Dynamically loaded page
     '/about': wrap({

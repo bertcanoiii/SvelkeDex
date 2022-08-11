@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from 'svelte';
+    import { onMount, afterUpdate } from 'svelte';
     import { fly, fade } from 'svelte/transition';
     import sprites from "../sprites.js";
 
@@ -8,15 +8,15 @@
     export let pokeCardId;
   
     const spriteArray = sprites;
-    let detailUrl = `#/pokemon/${pokeCardId}`;
+    let detailUrl = `#/pokemon/detail/${pokeCardId}`;
 
     onMount(async () => {
         if (pokemonCardName.length > 12) {
             pokemonCardName = pokemonCardName.slice(0, 12);
         }
     })
-
-    onMount(async () => {
+    
+    afterUpdate(async () => {
         if (pokemonCardName.length > 12) {
             pokemonCardName = pokemonCardName.slice(0, 12);
         }
@@ -30,7 +30,7 @@
             <div class="flex flex-col m-1 items-center cardBackground">
                 <!--            Pokemon Name-->
                 <div class="w-full text-center items-center devBorder">
-                    <h3 class="nameText">{pokemonCardName}</h3>
+                    <h3 class="nameText">{pokemonCardName.length > 12 ? pokemonCardName.slice(0, 12) : pokemonCardName}</h3>
                 </div>
                 <!--            Pokemon Pic-->
                 <div class="flex flex-row justify-center items-center m-2 pokePicBackground">
