@@ -1,7 +1,6 @@
 <script>
-  import {pop, replace, push} from 'svelte-spa-router';
-  import {setContext, getContext} from 'svelte';
-  import {fade, fly, slide} from 'svelte/transition';
+  import {push} from 'svelte-spa-router';
+  import {slide} from 'svelte/transition';
   import Footer from "../components/Footer.svelte";
   import PokemonDetailCard from "../components/PokemonDetailCard.svelte";
   import {
@@ -9,7 +8,6 @@
     pokemonId,
     currentPokemon,
     currentPokemonType,
-    totalPokemon,
     apiStatData,
     lastPokemonId,
     apiAbilityData,
@@ -26,7 +24,7 @@
     fetch(`https://pokeapi.co/api/v2/pokemon/${testNum}`)
           .then(response => response.json())
           .then(data => {
-            console.log("inside PokemonDetail.svelte")
+            // console.log("inside PokemonDetail.svelte")
             pokemonName.set(data.name)
             pokemonId.set(data.id)
             currentPokemonType.set(data.types[0].type.name)
@@ -41,7 +39,6 @@
     });
     currentPokemon.set(testNum);
   };
-
 
 </script>
 

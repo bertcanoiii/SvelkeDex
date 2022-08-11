@@ -1,13 +1,11 @@
 <script>
-  import {fade, slide, fly} from 'svelte/transition';
+  import {fade, slide} from 'svelte/transition';
   import {
     displayCountDataStore,
     searchPageNumberStore,
     searchPageStartNumberStore,
     pageNumberListStore,
-    pokemonName,
-    pokemonId, currentPokemonType, currentPokemon,
-    userSearchStore
+    userSearchStore, pokemonToDisplayDataStore
   } from "../store.js";
   import pokemonData from "../pokemonData.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
@@ -22,9 +20,15 @@
   $: pokeRangeHigh = $searchPageNumberStore * $displayCountDataStore;
   $: pokeRangeLow = pokeRangeHigh - $displayCountDataStore;
   
+  function checkSearch(pokemonObject) {
+    return pokemonObject.identifier.includes(userSearchInput);
+  }
+  
   //search info
+  let filteredPokemon = [];
   let userSearchInput = "";
   $: userSearchStore.set(userSearchInput)
+  $: filteredPokemon = pokemonInitialData.filter(pokemon => pokemon.identifier.includes(userSearchInput))
   
   const setCurrentPage = newPage => {
           if (newPage > totalPages) {
@@ -50,6 +54,7 @@
             pageNumberListStore.set(tempNumbers);
           }
         }
+        
   const setPokemonPerPage = newDisplayCount => {
     let tempNewPage;
     let tempFinalStartPage;
@@ -73,8 +78,12 @@
 </script>
 
 <!--debug-->
-<!--<div class="dbd">-->
-<!--    <p>displaycount: {$displayCountDataStore}</p>-->
+<div class="dbd h-5">
+  {#each filteredPokemon as pokemon, i}
+    {#if i < 5}
+      <p class="text-xs">{i}: {pokemon.identifier}</p>
+    {/if}
+  {/each}
 <!--    <p>currentpage: {$searchPageNumberStore}</p>-->
 <!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
 <!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
@@ -82,7 +91,7 @@
 <!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
 <!--    <p>{$userSearchStore}</p>-->
 <!--    <p>{userSearchInput}</p>-->
-<!--</div>-->
+</div>
 
 <!--Main Container-->
 <div class="">

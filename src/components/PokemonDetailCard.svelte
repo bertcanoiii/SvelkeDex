@@ -1,7 +1,6 @@
 <script>
-  import {onDestroy, onMount} from "svelte";
+  import {onMount} from "svelte";
   import {fade, fly} from 'svelte/transition';
-  import Loading from "./Loading.svelte";
   import {
     pokemonName,
     pokemonId,
@@ -21,7 +20,7 @@
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
           .then(response => response.json())
           .then(data => {
-            console.log("inside PokemonDetailCard.svelte")
+            // console.log("inside PokemonDetailCard.svelte")
             pokemonName.set(data.name)
             pokemonId.set(data.id)
             currentPokemonType.set(data.types[0].type.name)
@@ -36,7 +35,7 @@
     });
     currentPokemon.set(pokeParamId);
   });
-  
+
 </script>
 
 <div class="max-w-5xl mx-auto flex flex-col justify-start w-11/12 dbr overflow-x-hidden overflow-y-auto">
@@ -64,17 +63,17 @@
                         duration-500"
                  in:fly={{x: -50, delay: 600}}>
             </div>
-            <img class="flex dbr
-                        w-8/12
-                        sm:w-2/3
-                        drop-shadow-lg
-                        group-hover:scale-110
-                        group-hover:rotate-6
-                        duration-200"
-                 src="images/official-artwork/{$pokemonId}.png"
-                 alt="pic of pokemon"
-                 in:fly={{x: -50, delay: 800}}
-            >
+              <img class="flex dbr
+                          w-8/12
+                          sm:w-2/3
+                          drop-shadow-lg
+                          group-hover:scale-110
+                          group-hover:rotate-6
+                          duration-200"
+                   src="images/official-artwork/{$pokemonId}.png"
+                   alt="pic of pokemon"
+                   in:fly={{x: -50, delay: 800}}
+              >
           </div>
         </div>
         <!--                Global Stat Container-->

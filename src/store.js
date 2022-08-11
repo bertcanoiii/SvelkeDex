@@ -1,4 +1,6 @@
-import { writable,derived } from "svelte/store";
+import { writable, derived } from "svelte/store";
+
+export const pokemonToDisplayDataStore = writable([]);
 
 export const displayCountDataStore = writable(25);
 export const searchPageNumberStore = writable(1);

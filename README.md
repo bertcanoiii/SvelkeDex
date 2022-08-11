@@ -33,6 +33,31 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
   - I am not sure if my implementation is ideal. It seems to work fine. lol
 - Asset checking:
   - Not sure if this was the best way to accomplish this, but I wanted to check if a pic of a Pokémon existed. The reason for this is because, before doing so if a pic didn't exist, nothing would fill the poke-pic space, which caused the sizing of the cards to be affected in a less than ideal way. The cards would be smaller. So I created an array of strings, based on all the files currently in the images/main_sprites directory. In the for loop, I implemented an if condition that checked whether the pic existed in the array based on the Pokémon’s ID. If it did exist, I passed the path to the pic to the component. If it didn't exist, I passed the pat to a pic containing a question mark to the component.
+- Search Bar: First attempt didn't work on mobile. All I did was add an input field, bind that to a variable, which updates a store variable, and then check to see if the user-searched-text
+  - ```sveltehtml
+    let userSearchInput = "";
+    $: userSearchStore.set(userSearchInput)
+  
+    {#each allPokemon as pokemon, i}
+      {#if $userSearchStore.length > 1}
+    <!--Pokemon Cards Filtered By Search-->
+        {#if pokemon.identifier.includes($userSearchStore)}
+          <PokemonSearchCard/>
+        {/if}
+      {:else}
+        {#if i >= pokeRangeLow && i < pokeRangeHigh }
+    <!--Pokemon Cards Not Filtered-->
+          <PokemonSearchCard/>
+        {/if}
+      {/if}
+    {/each}
+    ```
+    This didn't seem to work on mobile devices, still working on updating this as of 08/11/2022.
+  
+- Loading: I haven't figured out how to not show an image until it is completely loaded. 08/11/2022. 
+  
+
+
 - Transitions: 
   
   - Svelte transitions (default/simple ones 😅) are seriously insanely easy to implement. For example, for the top-bar this is all that the code for adding a slide transition. lol 
@@ -52,3 +77,4 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
 - The only, small, obstacle I encountered was what to set the Basic-build settings to. After doing some research these options worked:
   - Build command: npm run build
   - Publish directory: dist
+
