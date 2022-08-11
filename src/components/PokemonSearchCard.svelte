@@ -1,11 +1,13 @@
 <script>
     import { onMount } from 'svelte';
     import { fly, fade } from 'svelte/transition';
+    import sprites from "../sprites.js";
 
     export let pokemonCardName;
     export let pokeCardPicPath;
     export let pokeCardId;
-
+  
+    const spriteArray = sprites;
     let detailUrl = `#/pokemon/${pokeCardId}`;
 
     onMount(async () => {
@@ -33,7 +35,11 @@
                 <!--            Pokemon Pic-->
                 <div class="flex flex-row justify-center items-center m-2 pokePicBackground">
                     <div class="absolute w-24 h-24 -z-50 border rounded-full group-hover:block group-hover:border-blue-600 group-hover:border-8 duration-500"></div>
-                    <img class="devBorder group-hover:-translate-y-0.5 group-hover:scale-150 hover:rotate-3 duration-300 group-hover:a" src="{pokeCardPicPath}" alt="images/pokeball_pic.png"/>
+                    {#if spriteArray.includes(`${pokeCardId}.png`)}
+                      <img class="devBorder group-hover:-translate-y-0.5 group-hover:scale-150 hover:rotate-3 duration-300 group-hover:a" src="{pokeCardPicPath}" alt="pokemon pic"/>
+                    {:else}
+                      <img class="devBorder group-hover:-translate-y-0.5 group-hover:scale-150 hover:rotate-3 duration-300 group-hover:a" src="images/main_sprites/0.png" alt="pokemon pic"/>
+                    {/if}
                 </div>
             </div>
         </a>

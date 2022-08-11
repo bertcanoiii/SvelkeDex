@@ -1,5 +1,5 @@
 <script>
-  import {fade, slide} from 'svelte/transition';
+  import {fade, slide, fly} from 'svelte/transition';
   import {
     displayCountDataStore,
     searchPageNumberStore,
@@ -10,11 +10,9 @@
     userSearchStore
   } from "../store.js";
   import pokemonData from "../pokemonData.js";
-  import sprites from "../sprites.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
   import Footer from "../components/Footer.svelte";
   
-  const spriteArray = sprites;
   const pokemonInitialData = pokemonData;
   let allPokemon = pokemonInitialData;
   let totalPokemon = pokemonInitialData.length;
@@ -192,34 +190,22 @@
             {#if $userSearchStore.length > 1}
                 <!--Pokemon Cards-->
               {#if pokemon.identifier.includes($userSearchStore)}
-                {#if spriteArray.includes(`${pokemon.id}.png`)}
-                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                     pokemonCardName="{pokemon.identifier}"
-                                     pokeCardId="{pokemon.id}"/>
-                {:else}
-                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/0.png"
-                                     pokemonCardName="{pokemon.identifier}"
-                                     pokeCardId="{pokemon.id}"/>
-                {/if}
+                <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                   pokemonCardName="{pokemon.identifier}"
+                                   pokeCardId="{pokemon.id}"/>
               {/if}
             {:else}
               {#if i >= pokeRangeLow && i < pokeRangeHigh }
                 <!--ORIGINAL Pokemon Cards-->
-                {#if spriteArray.includes(`${pokemon.id}.png`)}
-                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                     pokemonCardName="{pokemon.identifier}"
-                                     pokeCardId="{pokemon.id}"/>
-                {:else}
-                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/0.png"
-                                     pokemonCardName="{pokemon.identifier}"
-                                     pokeCardId="{pokemon.id}"/>
-                {/if}
+                <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                   pokemonCardName="{pokemon.identifier}"
+                                   pokeCardId="{pokemon.id}"/>
               {/if}
             {/if}
           {/each}
         </div>
       </div>
-      <div class="absolute bottom-0 w-screen max-w-5xl" in:slide={{delay: 500, duration: 1000}}>
+      <div class="absolute bottom-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
         <Footer/>
       </div>
     </div>
