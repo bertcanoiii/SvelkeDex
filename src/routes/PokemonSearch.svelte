@@ -29,6 +29,7 @@
   let userSearchInput = "";
   $: userSearchStore.set(userSearchInput)
   $: filteredPokemon = pokemonInitialData.filter(pokemon => pokemon.identifier.includes(userSearchInput))
+  $: userSearchInput2 = userSearchInput
   
   const setCurrentPage = newPage => {
           if (newPage > totalPages) {
@@ -79,6 +80,8 @@
 
 <!--debug-->
 <div class="dbd h-5">
+  <p>{userSearchInput}</p>
+  <p>{userSearchInput2}</p>
   {#each filteredPokemon as pokemon, i}
     {#if i < 5}
       <p class="text-xs">{i}: {pokemon.identifier}</p>
