@@ -9,22 +9,18 @@
   
   let hardForLoopTest = [];
   
-  for (let i = 0; i < pokemonData.length; i++){
-    if (pokemonData[i].identifier.includes(searchParams)){
-      hardForLoopTest.push(pokemonData[i])
-    }
+  for (let i = 0; i < 5; i++){
+    hardForLoopTest.push(pokemonData[i].identifier)
   }
 
   let hardForLoopObjectSpecifiedTest = [];
   
-  for (let i = 0; i < pokemonData.length; i++){
-    if (pokemonData[i].identifier.includes(searchParams)){
-      let tempObject = {
-        'id': pokemonData[i].id,
-        'identifier': pokemonData[i].identifier
-      };
-      hardForLoopObjectSpecifiedTest.push(tempObject)
-    }
+  for (let i = 10; i < 15; i++){
+    let tempObject = {
+      'id': pokemonData[i].id,
+      'identifier': pokemonData[i].identifier
+    };
+    hardForLoopObjectSpecifiedTest.push(tempObject)
   }
 
 </script>
@@ -62,19 +58,19 @@
           <!--    Loop for each pokemon card-->
           <div class="flex flex-col">
             <p>Search Param Test: {searchParams}</p>
-            <p>///hardForLoopTest///</p>
+            <p>///hardForLoopTest - array of strings, not using .includes///</p>
             {#each hardForLoopTest as pokemon, i}
               {#if i < 5 }
                 <div class="flex flex-col">
-                  <p>{i}: {pokemon.identifier}</p>
+                  <p>{i}: {pokemon}</p>
                 </div>
               {/if}
             {/each}
-            <p>///hardForLoopObjectSpecifiedTest///</p>
+            <p>///hardForLoopObjectSpecifiedTest array of objects not using .includes///</p>
             {#each hardForLoopObjectSpecifiedTest as pokemon, i}
               {#if i < 5 }
                 <div class="flex flex-col">
-                  <p>{i}: {pokemon.identifier}</p>
+                  <p>{i+1}: {pokemon.identifier}</p>
                 </div>
               {/if}
             {/each}
