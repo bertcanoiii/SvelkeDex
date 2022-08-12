@@ -1,5 +1,4 @@
 <script>
-  import {onMount, afterUpdate} from "svelte";
   import {fade, slide} from 'svelte/transition';
   import {push} from 'svelte-spa-router';
   import {
@@ -9,9 +8,6 @@
     pageNumberListStore,
     filteredPokemonStore,
     pokeSearchStore,
-    allPokemonStore,
-    searchParamStoreTest,
-    searchParamPokemonStoreTest
   } from "../store.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
   import Footer from "../components/Footer.svelte";
@@ -23,13 +19,9 @@
   $: pokeRangeHigh = $searchPageNumberStore * $displayCountDataStore;
   $: pokeRangeLow = pokeRangeHigh - $displayCountDataStore;
 
-  export let params = {};
-  // let searchParams = params.search;
-  // $: searchParamStoreTest.set(searchParams)
-  
   //search info
   let userSearchInput = "";
-  $: pokeSearchStore.set(userSearchInput)
+  $: pokeSearchStore.set(userSearchInput);
   
   const setCurrentPage = newPage => {
           if (newPage > totalPages) {
@@ -55,6 +47,7 @@
             pageNumberListStore.set(tempNumbers);
           }
         }
+        
   const setPokemonPerPage = newDisplayCount => {
     let tempNewPage;
     let tempFinalStartPage;
@@ -62,8 +55,8 @@
     if (newDisplayCount * totalPages > totalPokemon && newDisplayCount * $searchPageNumberStore > totalPokemon) {
       tempNewPage = Math.ceil((totalPokemon / newDisplayCount));
       tempFinalStartPage = tempNewPage - numberOfPages + 1;
-      searchPageNumberStore.set(tempNewPage)
-      searchPageStartNumberStore.set(tempFinalStartPage)
+      searchPageNumberStore.set(tempNewPage);
+      searchPageStartNumberStore.set(tempFinalStartPage);
       let tempNumbers = [];
       for (let i = 0; i < numberOfPages; i++) {
         tempNumbers.push($searchPageStartNumberStore + i);
@@ -73,30 +66,17 @@
     
     displayCountDataStore.set(newDisplayCount);
   }
+  
   const handleSubmitSearch = () => {
-    push(`#/pokemon/search/${$pokeSearchStore}`)
+    push(`#/pokemon/search/${$pokeSearchStore}`);
   }
   
 </script>
 
 <!--debug-->
-<div class="dbd text-xs">
+<!--<div class="dbd text-xs">-->
 <!--  <p>{userSearchInput}</p>-->
-<!--  <p>params: {searchParams}</p>-->
-<!--  <p>{$pokeSearchStore}</p>-->
-<!--  <p>$filtered</p>-->
-<!--  {#each $filteredPokemonStore as poke, i}-->
-<!--    {#if i < 3}-->
-<!--      <p>{poke.identifier}</p>-->
-<!--    {/if}-->
-<!--  {/each}-->
-<!--  <p>$searchParam: {$searchParamStoreTest}</p>-->
-<!--  {#each $searchParamPokemonStoreTest as poke, i}-->
-<!--    {#if i < 3}-->
-<!--      <p>{poke.identifier}</p>-->
-<!--    {/if}-->
-<!--  {/each}-->
-</div>
+<!--</div>-->
 
 <!--Main Container-->
 <div class="">
@@ -111,36 +91,13 @@
                     text-xl text-slate-700 font-bold
                     transition-transform ease-in duration-500">
           <!--        Navigation Button Container-->
-          <div class="flex flex-col justify-center my-2 devBorder">
+          <div class="flex flex-col justify-center devBorder">
             <div class="devBorder">
-              <!--        Page Number Container-->
-              <div class="flex justify-center mb-2 dbr devBorder">
-                <div class="flex justify-between max-w-sm w-10/12 dbr">
-                  <button class="pageNumbers {$pageNumberListStore.includes(1)? 'hidden' : ''}"
-                          on:click|preventDefault={() => setCurrentPage(1)}>
-                    1...
-                  </button>
-                  {#each $pageNumberListStore as page, i }
-                    {#if $searchPageNumberStore > 0}
-                      <button class="pageNumbers {page === $searchPageNumberStore ? 'text-white' : ''}"
-                              on:click|preventDefault={() => setCurrentPage(page)}
-                      >
-                        {page}
-                      </button>
-                    {/if}
-                  {/each}
-                  <button class="pageNumbers {$pageNumberListStore.includes(totalPages)? 'hidden' : ''}"
-                          on:click|preventDefault={() => setCurrentPage(totalPages)}>
-                    ...{totalPages}
-                  </button>
-                </div>
-              </div>
-            </div>
             <!--    Navigation Button Containers-->
             <div class="flex flex-col justify-center dbr">
               <div class="flex flex-col justify-center devBorder py-1">
                 <!--        Previous/Next Button Container-->
-                <div class="relative flex flex-row justify-between items-end dbr devBorder">
+                <div class="relative flex flex-row justify-between items-end dbr devBorder pb-1">
                   <!--            Previous Button(s)-->
                   <button class="w-1/8 navButton dbr"
                           on:click|preventDefault={() => setCurrentPage($searchPageNumberStore - 1)}
@@ -197,6 +154,31 @@
                   </button>
                 </div>
               </div>
+            </div>
+            <!--        Page Number Container-->
+            {#if !$pokeSearchStore}
+              <div class="flex justify-center mb-2 dbr devBorder">
+                <div class="flex justify-between max-w-sm w-10/12 dbr">
+                  <button class="pageNumbers {$pageNumberListStore.includes(1)? 'hidden' : ''}"
+                          on:click|preventDefault={() => setCurrentPage(1)}>
+                    1...
+                  </button>
+                  {#each $pageNumberListStore as page, i }
+                    {#if $searchPageNumberStore > 0}
+                      <button class="pageNumbers {page === $searchPageNumberStore ? 'text-white' : ''}"
+                              on:click|preventDefault={() => setCurrentPage(page)}
+                      >
+                        {page}
+                      </button>
+                    {/if}
+                  {/each}
+                  <button class="pageNumbers {$pageNumberListStore.includes(totalPages)? 'hidden' : ''}"
+                          on:click|preventDefault={() => setCurrentPage(totalPages)}>
+                    ...{totalPages}
+                  </button>
+                </div>
+              </div>
+            {/if}
             </div>
           </div>
         </div>
@@ -265,30 +247,3 @@
     duration-300
   }
 </style>
-
-
-<!--{#if searchParams}-->
-<!--  {#each $filteredPokemon as pokemon, i}-->
-<!--    <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
-<!--                       pokemonCardName="{pokemon.identifier}"-->
-<!--                       pokeCardId="{pokemon.id}"/>-->
-<!--  {/each}-->
-<!--{:else}-->
-<!--  {#each allPokemon as pokemon, i}-->
-<!--    {#if $pokeSearchStore.length > 1}-->
-<!--      &lt;!&ndash;Pokemon Cards&ndash;&gt;-->
-<!--      {#if pokemon.identifier.includes($pokeSearchStore)}-->
-<!--        <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
-<!--                           pokemonCardName="{pokemon.identifier}"-->
-<!--                           pokeCardId="{pokemon.id}"/>-->
-<!--      {/if}-->
-<!--    {:else}-->
-<!--      {#if i >= pokeRangeLow && i < pokeRangeHigh }-->
-<!--        &lt;!&ndash;ORIGINAL Pokemon Cards&ndash;&gt;-->
-<!--        <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
-<!--                           pokemonCardName="{pokemon.identifier}"-->
-<!--                           pokeCardId="{pokemon.id}"/>-->
-<!--      {/if}-->
-<!--    {/if}-->
-<!--  {/each}-->
-<!--{/if}-->

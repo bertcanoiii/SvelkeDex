@@ -1,6 +1,6 @@
 <script>
-  import {onMount} from "svelte";
-  import {fade, fly} from 'svelte/transition';
+  import { onMount } from "svelte";
+  import { fly } from 'svelte/transition';
   import {
     pokemonName,
     pokemonId,
@@ -11,38 +11,48 @@
     apiAbilityData,
     apiWeightData,
     apiHeightData,
-    lastPokemonId
+    pokeApiData
   } from "../store.js";
   
   export let pokeParamId;
-  export let params = {};
-  
   
   onMount(async () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
           .then(response => response.json())
           .then(data => {
-            // console.log("inside PokemonDetailCard.svelte")
-            pokemonName.set(data.name)
-            pokemonId.set(data.id)
-            currentPokemonType.set(data.types[0].type.name)
-            apiStatData.set(data.stats)
-            apiMoveData.set(data.moves)
-            apiAbilityData.set(data.abilities)
-            apiWeightData.set(data.weight)
-            apiHeightData.set(data.height)
+            // console.log("inside PokemonDetailCard.svelte");
+            pokemonName.set(data.name);
+            pokemonId.set(data.id);
+            currentPokemonType.set(data.types[0].type.name);
+            apiStatData.set(data.stats);
+            apiMoveData.set(data.moves);
+            apiAbilityData.set(data.abilities);
+            apiWeightData.set(data.weight);
+            apiHeightData.set(data.height);
       }).catch(error => {
-      console.log(error)
+      console.log(error);
       return [];
     });
     currentPokemon.set(pokeParamId);
+  });
+
+  onMount(async () => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
+          .then(response => response.json())
+          .then(data => {
+            // console.log("inside PokemonDetailCard.svelte");
+            pokeApiData.set(data);
+          }).catch(error => {
+      console.log(error);
+      return [];
+    });
   });
 
 </script>
 
 <div class="max-w-5xl mx-auto flex flex-col justify-start w-11/12 dbr overflow-x-hidden overflow-y-auto">
   <div class="flex flex-col">
-    {#key $currentPokemon}
+    {#key pokeParamId}
       <div class="relative dbr Background z-0
                   flex flex-col justify-center w-full space-y-4"
            in:fly={{x: -50}}
