@@ -1,17 +1,16 @@
 <script>
-  import { onMount } from "svelte";
-  import { fly } from 'svelte/transition';
+  import {onMount} from "svelte";
+  import {fly} from 'svelte/transition';
   import {
-    pokemonName,
-    pokemonId,
-    currentPokemonType,
     currentPokemon,
-    apiStatData,
-    apiMoveData,
-    apiAbilityData,
-    apiWeightData,
-    apiHeightData,
-    pokeApiData
+    pokeApiData,
+    pokemonId,
+    pokemonStats,
+    pokemonTypes,
+    pokemonHeight,
+    pokemonWeight,
+    pokemonAbilities,
+    pokemonMoves
   } from "../store.js";
   
   export let pokeParamId;
@@ -20,44 +19,24 @@
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
           .then(response => response.json())
           .then(data => {
-            // console.log("inside PokemonDetailCard.svelte");
-            pokemonName.set(data.name);
-            pokemonId.set(data.id);
-            currentPokemonType.set(data.types[0].type.name);
-            apiStatData.set(data.stats);
-            apiMoveData.set(data.moves);
-            apiAbilityData.set(data.abilities);
-            apiWeightData.set(data.weight);
-            apiHeightData.set(data.height);
-      }).catch(error => {
-      console.log(error);
-      return [];
-    });
-    currentPokemon.set(pokeParamId);
-  });
-
-  onMount(async () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
-          .then(response => response.json())
-          .then(data => {
-            // console.log("inside PokemonDetailCard.svelte");
             pokeApiData.set(data);
+            pokemonTypes.set(data.types)
           }).catch(error => {
       console.log(error);
       return [];
     });
   });
-
+  
 </script>
 
 <div class="max-w-5xl mx-auto flex flex-col justify-start w-11/12 dbr overflow-x-hidden overflow-y-auto">
   <div class="flex flex-col">
-    {#key pokeParamId}
+    {#key $currentPokemon}
       <div class="relative dbr Background z-0
                   flex flex-col justify-center w-full space-y-4"
            in:fly={{x: -50}}
       >
-        <!--        Pic Side-->
+        <!--        Pic-->
         <div class="flex flex-col justify-center items-center dbr">
           <div class="group relative
                       flex justify-center items-center pt-3">
@@ -75,17 +54,17 @@
                         duration-500"
                  in:fly={{x: -50, delay: 600}}>
             </div>
-              <img class="flex dbr
+            <img class="flex dbr
                           w-8/12
                           sm:w-2/3
                           drop-shadow-lg
                           group-hover:scale-110
                           group-hover:rotate-6
                           duration-200"
-                   src="images/official-artwork/{$pokemonId}.png"
-                   alt="pic of pokemon"
-                   in:fly={{x: -50, delay: 800}}
-              >
+                 src="images/official-artwork/{$pokemonId}.png"
+                 alt="pic of pokemon"
+                 in:fly={{x: -50, delay: 800}}
+            >
           </div>
         </div>
         <!--                Global Stat Container-->
@@ -110,15 +89,16 @@
                 <thead class="">
                 <tr class="text-lg border-b border-slate-600">
                   <th class="border-slate-600 border-r
-                             text-right w-2/3 pr-2">Stat</th>
+                             text-right w-2/3 pr-2">Stat
+                  </th>
                   <th class="text-left w-1/3 pl-2">Base</th>
                 </tr>
                 </thead>
                 <tbody>
-                {#each $apiStatData as stat, i}
+                {#each $pokemonStats as stats}
                   <tr class="text-sm">
-                    <td class="border-slate-600 border-r text-right pr-2">{stat.stat.name}</td>
-                    <td class="text-left pl-2">{stat.base_stat}</td>
+                    <td class="border-slate-600 border-r text-right pr-2">{stats.stat.name}</td>
+                    <td class="text-left pl-2">{stats.base_stat}</td>
                   </tr>
                 {/each}
                 </tbody>
@@ -143,17 +123,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="text-sm">
-                  <td class="border-slate-600 border-r text-right pr-2">Type</td>
-                  <td class=" text-left pl-2">{$currentPokemonType}</td>
-                </tr>
+                {#each $pokemonTypes as types, i}
+                  <tr class="text-sm">
+                    <td class="border-slate-600 border-r text-right pr-2">{$pokemonTypes.length === 1 ? "Type": `Type ${i+1}`}:</td>
+                    <td class=" text-left pl-2">{types.type.name}</td>
+                  </tr>
+                {/each}
                 <tr class="text-sm">
                   <td class="border-slate-600 border-r text-right pr-2">Weight</td>
-                  <td class="text-left pl-2">{$apiWeightData}</td>
+                  <td class="text-left pl-2">{$pokemonWeight}</td>
                 </tr>
                 <tr class="text-sm">
                   <td class="border-slate-600 border-r text-right pr-2">Height</td>
-                  <td class="text-left pl-2">{$apiHeightData}</td>
+                  <td class="text-left pl-2">{$pokemonHeight}</td>
                 </tr>
                 </tbody>
               </table>
@@ -182,7 +164,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {#each $apiAbilityData as abilityObject, i}
+                {#each $pokemonAbilities as abilityObject, i}
                   {#if i < 6}
                     <tr class="text-s">
                       <td class="text-right pr-2">{abilityObject.ability.name}</td>
@@ -210,7 +192,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {#each $apiMoveData as stat, i}
+                {#each $pokemonMoves as stat, i}
                   {#if i < 6}
                     <tr class="text-s">
                       <td class="text-left pl-2">{stat.move.name}</td>

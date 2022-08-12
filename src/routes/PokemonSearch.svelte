@@ -1,18 +1,21 @@
 <script>
+  import {onMount, onDestroy} from "svelte";
   import {fade, slide} from 'svelte/transition';
   import {push} from 'svelte-spa-router';
   import {
     displayCountDataStore,
+    allPokemonStore,
     searchPageNumberStore,
     searchPageStartNumberStore,
     pageNumberListStore,
     filteredPokemonStore,
     pokeSearchStore,
+    newPageStore
   } from "../store.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
   import Footer from "../components/Footer.svelte";
   
-  let totalPokemon = $filteredPokemonStore.length;
+  let totalPokemon = $allPokemonStore.length;
   let numberOfPages = 7;
   $: totalPages = Math.ceil(totalPokemon / $displayCountDataStore);
   $: finalPagesStartPage = totalPages - numberOfPages + 1;
@@ -23,30 +26,34 @@
   let userSearchInput = "";
   $: pokeSearchStore.set(userSearchInput);
   
+  let test;
+  
   const setCurrentPage = newPage => {
-          if (newPage > totalPages) {
-            searchPageNumberStore.set(totalPages);
-          } else if (newPage < 1) {
-            searchPageNumberStore.set(1);
-          } else {
-            searchPageNumberStore.set(newPage);
-          }
-          
-          if (newPage <= 4) {
-            searchPageStartNumberStore.set(1);
-          } else if (newPage > finalPagesStartPage) {
-            searchPageStartNumberStore.set(finalPagesStartPage);
-          } else {
-            searchPageStartNumberStore.set(newPage - Math.floor(numberOfPages / 2));
-          }
-          
-          let tempNumbers = [];
-          
-          for (let i = 0; i < numberOfPages; i++) {
-            tempNumbers.push($searchPageStartNumberStore + i);
-            pageNumberListStore.set(tempNumbers);
-          }
-        }
+
+      if (newPage > totalPages) {
+        searchPageNumberStore.set(totalPages);
+      } else if (newPage < 1) {
+        searchPageNumberStore.set(1);
+      } else {
+        searchPageNumberStore.set(newPage);
+      }
+
+      if (newPage <= 4) {
+        searchPageStartNumberStore.set(1);
+      } else if (newPage > finalPagesStartPage) {
+        searchPageStartNumberStore.set(finalPagesStartPage);
+      } else {
+        searchPageStartNumberStore.set(newPage - Math.floor(numberOfPages / 2));
+      }
+    
+    let tempNumbers = [];
+    
+    for (let i = 0; i < numberOfPages; i++) {
+      tempNumbers.push($searchPageStartNumberStore + i);
+      pageNumberListStore.set(tempNumbers);
+    }
+    
+  }
         
   const setPokemonPerPage = newDisplayCount => {
     let tempNewPage;
@@ -71,11 +78,21 @@
     push(`#/pokemon/search/${$pokeSearchStore}`);
   }
   
+  onMount(()=> {
+    console.log("mounted")
+  })
+  onDestroy(()=> {
+    console.log("destroyed")
+  })
+  
 </script>
 
 <!--debug-->
 <!--<div class="dbd text-xs">-->
-<!--  <p>{userSearchInput}</p>-->
+<!--  <p>newPage: {test}</p>-->
+<!--  <p>$newPageStore {$newPageStore}</p>-->
+<!--  <p>$startNumberStore {$searchPageStartNumberStore}</p>-->
+<!--  <p>totalPages {totalPages}</p>-->
 <!--</div>-->
 
 <!--Main Container-->
@@ -156,7 +173,7 @@
               </div>
             </div>
             <!--        Page Number Container-->
-            {#if !$pokeSearchStore}
+            {#if !userSearchInput}
               <div class="flex justify-center mb-2 dbr devBorder">
                 <div class="flex justify-between max-w-sm w-10/12 dbr">
                   <button class="pageNumbers {$pageNumberListStore.includes(1)? 'hidden' : ''}"
@@ -188,7 +205,14 @@
         <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
+          {#if $pokeSearchStore}
             {#each $filteredPokemonStore as pokemon, i }
+                <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                   pokemonCardName="{pokemon.identifier}"
+                                   pokeCardId="{pokemon.id}"/>
+            {/each}
+          {:else}
+            {#each $allPokemonStore as pokemon, i }
               {#if i >= pokeRangeLow && i < pokeRangeHigh }
                 <!--ORIGINAL Pokemon Cards-->
                 <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
@@ -196,6 +220,7 @@
                                    pokeCardId="{pokemon.id}"/>
               {/if}
             {/each}
+          {/if}
         </div>
       </div>
       <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>

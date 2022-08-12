@@ -1,43 +1,29 @@
 <script>
-  import { push } from 'svelte-spa-router';
-  import { slide } from 'svelte/transition';
+  import {push} from 'svelte-spa-router';
+  import {slide} from 'svelte/transition';
   import Footer from "../components/Footer.svelte";
   import PokemonDetailCard from "../components/PokemonDetailCard.svelte";
   import {
-    pokemonName,
-    pokemonId,
     currentPokemon,
-    currentPokemonType,
-    apiStatData,
-    lastPokemonId,
-    apiAbilityData,
-    apiWeightData,
-    apiHeightData,
-    apiMoveData
+    lastPokemonId, pokeApiData, pokemonTypes
   } from "../store.js";
   
   export let params = {};
   let pokeId = parseInt(params.id, 10);
   currentPokemon.set(pokeId);
   
-  const getPokemon2 = async testNum => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${testNum}`)
+  const getPokemon = async pokeNum => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeNum}`)
           .then(response => response.json())
           .then(data => {
-            // console.log("inside PokemonDetail.svelte")
-            pokemonName.set(data.name);
-            pokemonId.set(data.id);
-            currentPokemonType.set(data.types[0].type.name);
-            apiStatData.set(data.stats);
-            apiMoveData.set(data.moves);
-            apiAbilityData.set(data.abilities);
-            apiWeightData.set(data.weight);
-            apiHeightData.set(data.height);
+            // console.log("inside PokemonDetailCard.svelte");
+            pokeApiData.set(data);
+            pokemonTypes.set(data.types);
           }).catch(error => {
       console.log(error);
       return [];
     });
-    currentPokemon.set(testNum);
+    currentPokemon.set(pokeNum);
   };
 
 </script>
@@ -52,10 +38,10 @@
   <!--  Inner Main Container  -->
   <div class="relative h-screen w-screen flex flex-col items-center dbr">
     <div class="max-w-5xl w-11/12 pt-10 mx-auto dbr">
-      <h1 class="flex justify-center text-4xl text-center text-slate-700 dbr">{$pokemonName}</h1>
+      <h1 class="flex justify-center text-4xl text-center text-slate-700 dbr">{$pokeApiData.name}</h1>
       <div class="flex justify-between w-full mb-2 mt-2 dbr">
         <button class="prevButton dbr"
-                on:click={() => getPokemon2($currentPokemon - 1 < 1 ? $currentPokemon : $currentPokemon - 1)}
+                on:click={() => getPokemon($currentPokemon - 1 < 1 ? $currentPokemon : $currentPokemon - 1)}
                 on:click={push(`#/pokemon/detail/${$currentPokemon}`)}
         >
           Previous
@@ -74,7 +60,7 @@
           </a>
         </button>
         <button class="nextButton dbr"
-                on:click={() => getPokemon2($currentPokemon + 1 > $lastPokemonId ? $currentPokemon : $currentPokemon + 1)}
+                on:click={() => getPokemon($currentPokemon + 1 > $lastPokemonId ? $currentPokemon : $currentPokemon + 1)}
                 on:click={push(`#/pokemon/detail/${$currentPokemon}`)}>
           Next
         </button>
@@ -114,3 +100,7 @@
   }
 
 </style>
+
+
+<!--on:click={() => getPokemon2($currentPokemon + 1 > $lastPokemonId ? $currentPokemon : $currentPokemon + 1)}-->
+<!--on:click={push(`#/pokemon/detail/${$currentPokemon}`)}-->
