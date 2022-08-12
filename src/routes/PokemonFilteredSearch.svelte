@@ -5,7 +5,11 @@
   
   export let params = {};
   let searchParams = params.search;
-  let pokeSearchArray = pokemonData.filter(pokemon => pokemon.identifier.includes(searchParams));
+  let pokeSearchArray = [];
+  
+  for (let i = 0; i < 5; i++){
+    pokeSearchArray.push(i)
+  }
 
 </script>
 
@@ -42,9 +46,10 @@
           <!--    Loop for each pokemon card-->
           {#each pokeSearchArray as pokemon, i}
             <!--ORIGINAL Pokemon Cards-->
-            <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                               pokemonCardName="{pokemon.identifier}"
-                               pokeCardId="{pokemon.id}"/>
+<!--            <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
+<!--                               pokemonCardName="{pokemon.identifier}"-->
+<!--                               pokeCardId="{pokemon.id}"/>-->
+            <p>{pokemon}</p>
           {/each}
         </div>
       </div>
