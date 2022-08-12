@@ -1,6 +1,5 @@
 <script>
-  import { fade, slide } from 'svelte/transition';
-  import Footer from "../components/Footer.svelte";
+  import { fade } from 'svelte/transition';
 </script>
 
 

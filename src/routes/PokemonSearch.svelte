@@ -1,7 +1,7 @@
 <script>
-  import {onMount, onDestroy} from "svelte";
-  import {fade, slide} from 'svelte/transition';
-  import {push} from 'svelte-spa-router';
+  import { onMount, onDestroy } from "svelte";
+  import { fade } from 'svelte/transition';
+  import { push } from 'svelte-spa-router';
   import {
     displayCountDataStore,
     allPokemonStore,
@@ -10,10 +10,8 @@
     pageNumberListStore,
     filteredPokemonStore,
     pokeSearchStore,
-    newPageStore
   } from "../store.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
-  import Footer from "../components/Footer.svelte";
   
   let totalPokemon = $allPokemonStore.length;
   let numberOfPages = 7;
@@ -25,8 +23,6 @@
   //search info
   let userSearchInput = "";
   $: pokeSearchStore.set(userSearchInput);
-  
-  let test;
   
   const setCurrentPage = newPage => {
 

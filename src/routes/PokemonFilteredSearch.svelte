@@ -1,18 +1,11 @@
 <script>
-  import {fade, slide} from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
-  import Footer from "../components/Footer.svelte";
   import pokemonData from "../pokemonData.js";
   
   export let params = {};
   let searchParams = params.search;
-  let pokeSearchArray = [];
-  
-  for (let i = 0; i < pokemonData.length; i++) {
-    if (pokemonData[i].identifier.includes(searchParams)) {
-      pokeSearchArray.push(pokemonData[i]);
-    }
-  }
+  let pokeSearchArray = pokemonData.filter(pokemon => pokemon.identifier.includes(searchParams));
 
 </script>
 

@@ -1,7 +1,5 @@
 <script>
-  import {push} from 'svelte-spa-router';
-  import {slide} from 'svelte/transition';
-  import Footer from "../components/Footer.svelte";
+  import { push } from 'svelte-spa-router';
   import PokemonDetailCard from "../components/PokemonDetailCard.svelte";
   import {
     currentPokemon,
