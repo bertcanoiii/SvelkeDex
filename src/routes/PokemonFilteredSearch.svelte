@@ -55,9 +55,6 @@
           {/each}
         </div>
       </div>
-      <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
-        <Footer/>
-      </div>
     </div>
   </div>
 </div>

@@ -202,10 +202,10 @@
       </div>
       <!--Pokemon Card Container-->
       <div class="overflow-x-hidden overflow-y-auto h-screen">
-        <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
+        <div class="flex flex-row flex-wrap mb-10 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-          {#if $pokeSearchStore}
+          {#if $pokeSearchStore.length > 1}
             {#each $filteredPokemonStore as pokemon, i }
                 <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
                                    pokemonCardName="{pokemon.identifier}"
@@ -222,9 +222,6 @@
             {/each}
           {/if}
         </div>
-      </div>
-      <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
-        <Footer/>
       </div>
     </div>
   </div>

@@ -5,7 +5,9 @@
   import PokemonDetailCard from "../components/PokemonDetailCard.svelte";
   import {
     currentPokemon,
-    lastPokemonId, pokeApiData, pokemonTypes
+    lastPokemonId,
+    pokeApiData,
+    pokemonTypes
   } from "../store.js";
   
   export let params = {};
@@ -67,9 +69,6 @@
       </div>
     </div>
     <PokemonDetailCard pokeParamId="{pokeId}"/>
-    <div class="absolute bottom-0 w-screen max-w-5xl" in:slide={{delay: 500, duration: 1000}}>
-      <Footer/>
-    </div>
   </div>
 </div>
 
@@ -100,7 +99,3 @@
   }
 
 </style>
-
-
-<!--on:click={() => getPokemon2($currentPokemon + 1 > $lastPokemonId ? $currentPokemon : $currentPokemon + 1)}-->
-<!--on:click={push(`#/pokemon/detail/${$currentPokemon}`)}-->

@@ -1,8 +1,9 @@
 <script>
-    import { fade } from 'svelte/transition';
+    import { fade, slide } from 'svelte/transition';
     import routes from './routes.js'
     import Router from 'svelte-spa-router'
     import Navbar from './components/Navbar.svelte'
+    import Footer from "./components/Footer.svelte";
     import Loading from "./components/Loading.svelte";
     import {onDestroy} from "svelte";
 
@@ -44,6 +45,9 @@
                         {/if}
                     </div>
                     <Router {routes}/>
+                    <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
+                      <Footer/>
+                    </div>
                 </div>
             </div>
         </div>

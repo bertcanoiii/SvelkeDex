@@ -22,9 +22,6 @@
           </ul>
         </div>
       </div>
-      <div class="absolute bottom-0 w-screen max-w-7xl" in:slide={{delay: 500, duration: 1000}}>
-        <Footer/>
-      </div>
     </div>
   </div>
 </div>
