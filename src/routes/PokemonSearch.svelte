@@ -120,11 +120,11 @@
                                     placeholder:text-sm
                                     placeholder:text-slate-300
                                     focus:outline-none"
-                             placeholder="Search by name"
+                             placeholder="Search by name!"
                              type="text"
                              bind:value={userSearchInput}>
                       <a class="flex h-fit mt-[1px] dbr" href="#/pokemon/search/{userSearchInput}">
-                        <button class="text-xs px-2" type="submit">
+                        <button class="text-xs px-2 {userSearchInput ? 'block' : 'hidden'}" type="submit">
                           Search!
                         </button>
                       </a>
