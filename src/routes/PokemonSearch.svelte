@@ -10,6 +10,8 @@
     filteredPokemonStore,
     pokeSearchStore,
     allPokemonStore,
+    searchParamStoreTest,
+    searchParamPokemonStoreTest
   } from "../store.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
   import Footer from "../components/Footer.svelte";
@@ -23,6 +25,7 @@
 
   export let params = {};
   let searchParams = params.search;
+  $: searchParamStoreTest.set(searchParams)
   
   //search info
   let userSearchInput = "";
@@ -77,13 +80,19 @@
 </script>
 
 <!--debug-->
-<div class="dbd h-5">
+<div class="dbd text-xs">
   <p>{userSearchInput}</p>
 <!--  <p>params: {searchParams}</p>-->
-  <a href="#/pokemon/search/{userSearchInput}">go</a>
   <p>{$pokeSearchStore}</p>
+  <p>$filtered</p>
   {#each $filteredPokemonStore as poke, i}
-    {#if i < 5}
+    {#if i < 3}
+      <p>{poke.identifier}</p>
+    {/if}
+  {/each}
+  <p>$searchParam: {$searchParamStoreTest}</p>
+  {#each $searchParamPokemonStoreTest as poke, i}
+    {#if i < 3}
       <p>{poke.identifier}</p>
     {/if}
   {/each}
@@ -197,7 +206,14 @@
         <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-            {#each $filteredPokemonStore as pokemon, i}
+          {#if searchParams}
+            {#each $searchParamPokemonStoreTest as pokemon, i}
+              <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                 pokemonCardName="{pokemon.identifier}"
+                                 pokeCardId="{pokemon.id}"/>
+            {/each}
+          {:else}
+            {#each $filteredPokemonStore as pokemon, i }
               {#if i >= pokeRangeLow && i < pokeRangeHigh }
                 <!--ORIGINAL Pokemon Cards-->
                 <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
@@ -205,6 +221,7 @@
                                    pokeCardId="{pokemon.id}"/>
               {/if}
             {/each}
+          {/if}
         </div>
       </div>
       <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>

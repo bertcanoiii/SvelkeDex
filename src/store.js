@@ -6,8 +6,15 @@ export const allPokemonStore = writable(pokemonData);
 export const filteredPokemonStore = derived(
   [pokeSearchStore, allPokemonStore],
     ([$pokeSearchStore, $allPokemonStore]) => {
-      return $allPokemonStore.filter(x => x.identifier.includes($pokeSearchStore))
-    }
+        return $allPokemonStore.filter(x => x.identifier.includes($pokeSearchStore))
+  }
+);
+export const searchParamStoreTest = writable('');
+export const searchParamPokemonStoreTest = derived(
+  [searchParamStoreTest, allPokemonStore],
+    ([$searchParamStoreTest, $allPokemonStore]) => {
+        return $allPokemonStore.filter(x => x.identifier.includes($searchParamStoreTest))
+  }
 );
 
 export const displayCountDataStore = writable(25);
