@@ -1,6 +1,14 @@
 import { writable, derived } from "svelte/store";
+import pokemonData from "./pokemonData.js";
 
-export const filteredPokemon = writable([]);
+export const pokeSearchStore = writable('');
+export const allPokemonStore = writable(pokemonData);
+export const filteredPokemonStore = derived(
+  [pokeSearchStore, allPokemonStore],
+    ([$pokeSearchStore, $allPokemonStore]) => {
+      return $allPokemonStore.filter(x => x.identifier.includes($pokeSearchStore))
+    }
+);
 
 export const displayCountDataStore = writable(25);
 export const searchPageNumberStore = writable(1);

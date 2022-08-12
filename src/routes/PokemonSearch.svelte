@@ -7,15 +7,14 @@
     searchPageNumberStore,
     searchPageStartNumberStore,
     pageNumberListStore,
-    userSearchStore, filteredPokemon
+    filteredPokemonStore,
+    pokeSearchStore,
+    allPokemonStore,
   } from "../store.js";
-  import pokemonData from "../pokemonData.js";
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
   import Footer from "../components/Footer.svelte";
   
-  const pokemonInitialData = pokemonData;
-  let allPokemon = pokemonInitialData;
-  let totalPokemon = pokemonInitialData.length;
+  let totalPokemon = $filteredPokemonStore.length;
   let numberOfPages = 7;
   $: totalPages = Math.ceil(totalPokemon / $displayCountDataStore);
   $: finalPagesStartPage = totalPages - numberOfPages + 1;
@@ -27,7 +26,7 @@
   
   //search info
   let userSearchInput = "";
-  $: userSearchStore.set(userSearchInput)
+  $: pokeSearchStore.set(userSearchInput)
   
   const setCurrentPage = newPage => {
           if (newPage > totalPages) {
@@ -72,39 +71,23 @@
     displayCountDataStore.set(newDisplayCount);
   }
   const handleSubmitSearch = () => {
-    push(`#/pokemon/search/${$userSearchStore}`)
+    push(`#/pokemon/search/${$pokeSearchStore}`)
   }
-
-  onMount(() => {
-    console.log("mounted")
-    if (searchParams){
-      let tempList = [];
-      for (let i = 0; i < pokemonInitialData.length; i++) {
-        if (pokemonInitialData[i].identifier.includes(searchParams)) {
-          tempList.push(pokemonInitialData[i])
-        }
-      }
-      filteredPokemon.set(tempList)
-      console.log("has params")
-    }
-  })
   
 </script>
 
 <!--debug-->
-<!--<div class="dbd h-5">-->
-<!--  <p>{userSearchInput}</p>-->
+<div class="dbd h-5">
+  <p>{userSearchInput}</p>
 <!--  <p>params: {searchParams}</p>-->
-<!--  <a href="#/pokemon/search/{userSearchInput}">go</a>-->
-<!--  <p>{$filteredPokemon.length}</p>-->
-<!--    <p>currentpage: {$searchPageNumberStore}</p>-->
-<!--    <p>currentstartpage: {$searchPageStartNumberStore}</p>-->
-<!--    <p>pageNumbers: {$pageNumberListStore}</p>-->
-<!--    <p>total pokes: {totalPokemon}</p>-->
-<!--    <p>display * pages: {$displayCountDataStore * numberOfPages}</p>-->
-<!--    <p>{$userSearchStore}</p>-->
-<!--    <p>{userSearchInput}</p>-->
-<!--</div>-->
+  <a href="#/pokemon/search/{userSearchInput}">go</a>
+  <p>{$pokeSearchStore}</p>
+  {#each $filteredPokemonStore as poke, i}
+    {#if i < 5}
+      <p>{poke.identifier}</p>
+    {/if}
+  {/each}
+</div>
 
 <!--Main Container-->
 <div class="">
@@ -128,7 +111,7 @@
                           on:click|preventDefault={() => setCurrentPage(1)}>
                     1...
                   </button>
-                  {#each $pageNumberListStore as page, i}
+                  {#each $pageNumberListStore as page, i }
                     {#if $searchPageNumberStore > 0}
                       <button class="pageNumbers {page === $searchPageNumberStore ? 'text-white' : ''}"
                               on:click|preventDefault={() => setCurrentPage(page)}
@@ -214,31 +197,14 @@
         <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-          {#if searchParams}
-            {#each $filteredPokemon as pokemon, i}
-              <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                 pokemonCardName="{pokemon.identifier}"
-                                 pokeCardId="{pokemon.id}"/>
-            {/each}
-          {:else}
-            {#each allPokemon as pokemon, i}
-              {#if $userSearchStore.length > 1}
-                  <!--Pokemon Cards-->
-                {#if pokemon.identifier.includes($userSearchStore)}
-                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                     pokemonCardName="{pokemon.identifier}"
-                                     pokeCardId="{pokemon.id}"/>
-                {/if}
-              {:else}
-                {#if i >= pokeRangeLow && i < pokeRangeHigh }
-                  <!--ORIGINAL Pokemon Cards-->
-                  <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                     pokemonCardName="{pokemon.identifier}"
-                                     pokeCardId="{pokemon.id}"/>
-                {/if}
+            {#each $filteredPokemonStore as pokemon, i}
+              {#if i >= pokeRangeLow && i < pokeRangeHigh }
+                <!--ORIGINAL Pokemon Cards-->
+                <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
+                                   pokemonCardName="{pokemon.identifier}"
+                                   pokeCardId="{pokemon.id}"/>
               {/if}
             {/each}
-          {/if}
         </div>
       </div>
       <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
@@ -290,3 +256,30 @@
     duration-300
   }
 </style>
+
+
+<!--{#if searchParams}-->
+<!--  {#each $filteredPokemon as pokemon, i}-->
+<!--    <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
+<!--                       pokemonCardName="{pokemon.identifier}"-->
+<!--                       pokeCardId="{pokemon.id}"/>-->
+<!--  {/each}-->
+<!--{:else}-->
+<!--  {#each allPokemon as pokemon, i}-->
+<!--    {#if $pokeSearchStore.length > 1}-->
+<!--      &lt;!&ndash;Pokemon Cards&ndash;&gt;-->
+<!--      {#if pokemon.identifier.includes($pokeSearchStore)}-->
+<!--        <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
+<!--                           pokemonCardName="{pokemon.identifier}"-->
+<!--                           pokeCardId="{pokemon.id}"/>-->
+<!--      {/if}-->
+<!--    {:else}-->
+<!--      {#if i >= pokeRangeLow && i < pokeRangeHigh }-->
+<!--        &lt;!&ndash;ORIGINAL Pokemon Cards&ndash;&gt;-->
+<!--        <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
+<!--                           pokemonCardName="{pokemon.identifier}"-->
+<!--                           pokeCardId="{pokemon.id}"/>-->
+<!--      {/if}-->
+<!--    {/if}-->
+<!--  {/each}-->
+<!--{/if}-->

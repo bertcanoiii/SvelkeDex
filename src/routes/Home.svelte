@@ -1,9 +1,15 @@
 <script>
     import {fade, slide} from 'svelte/transition';
     import Footer from "../components/Footer.svelte";
+    import {pokeSearchStore, filteredPokemonStore} from "../store.js";
 
 </script>
 
+
+<div class="dbd">
+  <p>{$pokeSearchStore}</p>
+  <p>{$filteredPokemonStore}</p>
+</div>
 <div class="relative flex flex-col min-h-screen items-center max-w-5xl mx-auto devBorder">
     <div class="flex flex-col items-center justify-center h-screen w-screen">
         <div class="text-6xl text-center text-slate-700" in:fade={{delay: 900}}>
