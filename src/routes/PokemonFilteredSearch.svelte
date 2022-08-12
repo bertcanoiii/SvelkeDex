@@ -18,7 +18,7 @@
           'id': pokemonData[i].id,
           'identifier': pokemonData[i].identifier
         }
-        pokeSearchArray.push(tempObject);
+        pokeSearchArray[pokeSearchArray.length] = tempObject;
         console.log(`${tempString} is inside ${pokemonData[i].identifier}`)
       }
     }
