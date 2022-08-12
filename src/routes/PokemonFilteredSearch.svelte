@@ -7,8 +7,24 @@
   let searchParams = params.search;
   let pokeSearchArray = [];
   
-  for (let i = 0; i < 5; i++){
-    pokeSearchArray.push(i)
+  let hardForLoopTest = [];
+  
+  for (let i = 0; i < pokemonData.length; i++){
+    if (pokemonData[i].identifier.includes(searchParams)){
+      hardForLoopTest.push(pokemonData[i])
+    }
+  }
+
+  let hardForLoopObjectSpecifiedTest = [];
+  
+  for (let i = 0; i < pokemonData.length; i++){
+    if (pokemonData[i].identifier.includes(searchParams)){
+      let tempObject = {
+        'id': pokemonData[i].id,
+        'identifier': pokemonData[i].identifier
+      };
+      hardForLoopObjectSpecifiedTest.push(tempObject)
+    }
   }
 
 </script>
@@ -41,18 +57,35 @@
       </div>
       <!--Pokemon Card Container-->
       <div class="overflow-x-hidden overflow-y-auto h-screen">
-        <div class="flex flex-row flex-wrap mb-10 justify-center devBorder"
+        <div class="flex flex-row flex-wrap text-xs mb-10 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-          {#each pokeSearchArray as pokemon, i}
-            <!--ORIGINAL Pokemon Cards-->
-<!--            <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
-<!--                               pokemonCardName="{pokemon.identifier}"-->
-<!--                               pokeCardId="{pokemon.id}"/>-->
-            <p>{pokemon}</p>
-          {/each}
+          <div class="flex flex-col">
+            <p>Search Param Test: {searchParams}</p>
+            <p>///hardForLoopTest///</p>
+            {#each hardForLoopTest as pokemon, i}
+              {#if i < 5 }
+                <div class="flex flex-col">
+                  <p>{i}: {pokemon.identifier}</p>
+                </div>
+              {/if}
+            {/each}
+            <p>///hardForLoopObjectSpecifiedTest///</p>
+            {#each hardForLoopObjectSpecifiedTest as pokemon, i}
+              {#if i < 5 }
+                <div class="flex flex-col">
+                  <p>{i}: {pokemon.identifier}</p>
+                </div>
+              {/if}
+            {/each}
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!--ORIGINAL Pokemon Cards-->
+<!--            <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"-->
+<!--                               pokemonCardName="{pokemon.identifier}"-->
+<!--                               pokeCardId="{pokemon.id}"/>-->
