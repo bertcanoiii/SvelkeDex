@@ -9,16 +9,26 @@
   
   for (let i = 0; i < pokemonData.length; i++) {
     for (let j = 0; j < (pokemonData[i].identifier.length - searchParams.length); j++) {
-      if (pokemonData[i].identifier.slice(j, (j + searchParams.length)) === searchParams) {
+      let tempString = "";
+      for (let k = 0; k < searchParams.length; k++){
+        tempString += pokemonData[i].identifier[j+k]
+      }
+      if (tempString === searchParams) {
         let tempObject = {
           'id': pokemonData[i].id,
           'identifier': pokemonData[i].identifier
         }
-        pokeSearchArray.push(tempObject)
+        pokeSearchArray.push(tempObject);
+        console.log(`${tempString} is inside ${pokemonData[i].identifier}`)
       }
     }
   }
-
+  
+  for (let i = 0; i < pokeSearchArray.length; i++ ) {
+    console.log(pokeSearchArray[i].id)
+    console.log(pokeSearchArray[i].identifier)
+  }
+  
 </script>
 
 <div class="">
