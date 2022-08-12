@@ -1,4 +1,5 @@
 <script>
+  import {onMount} from "svelte";
   import {fade, slide} from 'svelte/transition';
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
   import Footer from "../components/Footer.svelte";
@@ -6,6 +7,13 @@
   export let params = {};
   let searchParams = params.search;
   $: searchParamStoreTest.set(searchParams);
+  let testArray = [];
+  
+  onMount(()=> {
+    for (let i = 0; i < $searchParamPokemonStoreTest.length; i++) {
+      testArray.push($searchParamPokemonStoreTest[i])
+    }
+  });
   
 </script>
 
@@ -44,7 +52,7 @@
         <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-          {#each $searchParamPokemonStoreTest as pokemon, i }
+          {#each testArray as pokemon, i }
               <!--ORIGINAL Pokemon Cards-->
               <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
                                  pokemonCardName="{pokemon.identifier}"
