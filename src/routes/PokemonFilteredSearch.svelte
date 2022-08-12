@@ -7,19 +7,26 @@
   let searchParams = params.search;
   let pokeSearchArray = [];
   
+  let pokemonDataCopy = [];
   for (let i = 0; i < pokemonData.length; i++) {
-    for (let j = 0; j < (pokemonData[i].identifier.length - searchParams.length); j++) {
+    pokemonDataCopy[pokemonDataCopy.length] = ({
+      'id': pokemonData[i].id,
+      'identifier': pokemonData[i].identifier
+    })
+  }
+  
+  for (let i = 0; i < pokemonDataCopy.length; i++) {
+    for (let j = 0; j < (pokemonDataCopy[i].identifier.length - searchParams.length); j++) {
       let tempString = "";
       for (let k = 0; k < searchParams.length; k++){
-        tempString += pokemonData[i].identifier[j+k]
+        tempString += pokemonDataCopy[i].identifier[j+k]
       }
       if (tempString === searchParams) {
-        let tempObject = {
-          'id': pokemonData[i].id,
-          'identifier': pokemonData[i].identifier
-        }
-        pokeSearchArray[pokeSearchArray.length] = tempObject;
-        console.log(`${tempString} is inside ${pokemonData[i].identifier}`)
+        pokeSearchArray[pokeSearchArray.length] = {
+          'id': pokemonDataCopy[i].id,
+          'identifier': pokemonDataCopy[i].identifier
+        };
+        console.log(`${tempString} is inside ${pokemonDataCopy[i].identifier}`)
       }
     }
   }
