@@ -24,8 +24,8 @@
   $: pokeRangeLow = pokeRangeHigh - $displayCountDataStore;
 
   export let params = {};
-  let searchParams = params.search;
-  $: searchParamStoreTest.set(searchParams)
+  // let searchParams = params.search;
+  // $: searchParamStoreTest.set(searchParams)
   
   //search info
   let userSearchInput = "";
@@ -81,21 +81,21 @@
 
 <!--debug-->
 <div class="dbd text-xs">
-  <p>{userSearchInput}</p>
+<!--  <p>{userSearchInput}</p>-->
 <!--  <p>params: {searchParams}</p>-->
-  <p>{$pokeSearchStore}</p>
-  <p>$filtered</p>
-  {#each $filteredPokemonStore as poke, i}
-    {#if i < 3}
-      <p>{poke.identifier}</p>
-    {/if}
-  {/each}
-  <p>$searchParam: {$searchParamStoreTest}</p>
-  {#each $searchParamPokemonStoreTest as poke, i}
-    {#if i < 3}
-      <p>{poke.identifier}</p>
-    {/if}
-  {/each}
+<!--  <p>{$pokeSearchStore}</p>-->
+<!--  <p>$filtered</p>-->
+<!--  {#each $filteredPokemonStore as poke, i}-->
+<!--    {#if i < 3}-->
+<!--      <p>{poke.identifier}</p>-->
+<!--    {/if}-->
+<!--  {/each}-->
+<!--  <p>$searchParam: {$searchParamStoreTest}</p>-->
+<!--  {#each $searchParamPokemonStoreTest as poke, i}-->
+<!--    {#if i < 3}-->
+<!--      <p>{poke.identifier}</p>-->
+<!--    {/if}-->
+<!--  {/each}-->
 </div>
 
 <!--Main Container-->
@@ -206,13 +206,6 @@
         <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-          {#if searchParams}
-            {#each $searchParamPokemonStoreTest as pokemon, i}
-              <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
-                                 pokemonCardName="{pokemon.identifier}"
-                                 pokeCardId="{pokemon.id}"/>
-            {/each}
-          {:else}
             {#each $filteredPokemonStore as pokemon, i }
               {#if i >= pokeRangeLow && i < pokeRangeHigh }
                 <!--ORIGINAL Pokemon Cards-->
@@ -221,7 +214,6 @@
                                    pokeCardId="{pokemon.id}"/>
               {/if}
             {/each}
-          {/if}
         </div>
       </div>
       <div class="absolute bottom-0 left-0 right-0 w-screen max-w-5xl mx-auto" in:slide={{delay: 500, duration: 1000}}>
