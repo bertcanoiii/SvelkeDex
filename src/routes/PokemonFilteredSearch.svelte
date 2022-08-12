@@ -22,18 +22,14 @@
         tempString += pokemonDataCopy[i].identifier[j+k]
       }
       if (tempString === searchParams) {
-        pokeSearchArray[pokeSearchArray.length] = {
-          'id': pokemonDataCopy[i].id,
-          'identifier': pokemonDataCopy[i].identifier
-        };
+        pokeSearchArray[pokeSearchArray.length] = pokemonDataCopy[i].id
         console.log(`${tempString} is inside ${pokemonDataCopy[i].identifier}`)
       }
     }
   }
   
   for (let i = 0; i < pokeSearchArray.length; i++ ) {
-    console.log(pokeSearchArray[i].id)
-    console.log(pokeSearchArray[i].identifier)
+    console.log(pokeSearchArray[i])
   }
   
 </script>
@@ -75,7 +71,7 @@
             <p>///hardForLoopTest - array of strings, not using .includes///</p>
             {#each pokeSearchArray as pokemon, i}
                 <div class="flex flex-col">
-                  <p>{pokemon.id}: {pokemon.identifier}</p>
+                  <p>{pokemon}</p>
                 </div>
             {/each}
           </div>
