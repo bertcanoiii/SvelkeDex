@@ -54,7 +54,7 @@
         text-slate-700
         font-bold
         group-hover:-translate-y-1
-        group-hover:text-xl
+        group-hover:text-sm
         group-hover:text-blue-600
         duration-500
     }

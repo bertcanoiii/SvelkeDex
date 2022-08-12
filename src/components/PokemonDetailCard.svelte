@@ -15,6 +15,8 @@
   } from "../store.js";
   
   export let pokeParamId;
+  export let params = {};
+  
   
   onMount(async () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)

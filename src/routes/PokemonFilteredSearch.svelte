@@ -3,17 +3,16 @@
   import {fade, slide} from 'svelte/transition';
   import PokemonSearchCard from "../components/PokemonSearchCard.svelte";
   import Footer from "../components/Footer.svelte";
-  import {searchParamStoreTest, searchParamPokemonStoreTest} from "../store.js";
+  import pokemonData from "../pokemonData.js";
   export let params = {};
   let searchParams = params.search;
-  $: searchParamStoreTest.set(searchParams);
-  let testArray = [];
+  let pokeSearchArray = [];
   
-  onMount(()=> {
-    for (let i = 0; i < $searchParamPokemonStoreTest.length; i++) {
-      testArray.push($searchParamPokemonStoreTest[i])
+  for (let i = 0; i < pokemonData.length; i++) {
+    if (pokemonData[i].identifier.includes(searchParams)) {
+      pokeSearchArray.push(pokemonData[i])
     }
-  });
+  }
   
 </script>
 
@@ -33,17 +32,21 @@
       <div class="sticky top-0 z-10 backdrop-blur-sm">
         <h1 class="pt-11 pageTitle">Search Results for: {searchParams}</h1>
       </div>
+<!--      Back button-->
       <div class="flex flex-col justify-center items-center w-full
                     text-lg text-slate-700 font-bold
-                    transition-transform ease-in duration-500 pb-1">
-        <button class="flex w-fit
-                       bg-white/70 text-base rounded-md
-                       pt-[1px] px-5
+                    transition-transform ease-in duration-500 pb-1 my-1">
+        <button class="flex w-fit h-fit
+                       bg-blue-100/70 text-base rounded-md
+                       px-5
                        hover:bg-slate-700
                        hover:text-white
-                       duration-200">
+                       hover:rounded-2xl
+                       transition-all
+                       ease-linear
+                       duration-300">
           <a href="/#/pokemon">
-            Go Back
+            Back to all!
           </a>
         </button>
       </div>
@@ -52,7 +55,7 @@
         <div class="flex flex-row flex-wrap mb-5 justify-center devBorder"
              in:fade={{delay: 500}}>
           <!--    Loop for each pokemon card-->
-          {#each testArray as pokemon, i }
+          {#each pokeSearchArray as pokemon, i}
               <!--ORIGINAL Pokemon Cards-->
               <PokemonSearchCard pokeCardPicPath="images/main_sprites/{pokemon.id}.png"
                                  pokemonCardName="{pokemon.identifier}"
