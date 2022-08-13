@@ -22,6 +22,8 @@
   let userSearchInput = "";
   $: pokeSearchStore.set(userSearchInput);
   
+  let mouseOverSearch = false;
+  
   const setCurrentPage = newPage => {
 
       if (newPage > totalPages) {
@@ -68,6 +70,10 @@
     displayCountDataStore.set(newDisplayCount);
   }
   
+  const setMouseOverSearch = () => {
+    mouseOverSearch = !mouseOverSearch;
+  }
+  
   const handleSubmitSearch = () => {
     push(`#/pokemon/search/${$pokeSearchStore}`);
   }
@@ -101,21 +107,43 @@
                     Previous
                   </button>
                   <!--            Search Input -->
-                  <form class="flex items-center bg-white rounded-xl justify-center w-2/5 lg:w-1/3 mb-1 transition-all duration-500 dbr" on:submit|preventDefault={handleSubmitSearch}>
-                    <div class="flex items-center bg-white rounded-xl justify-center w-full transition-all duration-500 dbr">
+                  <form class="flex
+                               items-center justify-center
+                               bg-white rounded-xl
+                               w-2/5 lg:w-1/3
+                               mb-1
+                               transition-all duration-200
+                               {mouseOverSearch ? 'bg-slate-700 text-white' : 'bg-white text-slate-700'}"
+                        on:submit|preventDefault={handleSubmitSearch}
+                  >
+                    <div class="flex
+                                group
+                                w-full
+                                items-center justify-center
+                                bg-white
+                                rounded-xl
+                                transition-all duration-200
+                                {mouseOverSearch ? 'bg-slate-700 text-white' : 'bg-white text-slate-700'}">
                       <input class="flex
                                     dbr
                                     w-5/6
                                     rounded-xl pl-2 pt-[2px]
                                     text-sm
+                                    {mouseOverSearch ? 'bg-slate-700 text-white' : 'bg-white text-slate-700'}
+                                    duration-300
                                     placeholder:text-sm
-                                    placeholder:text-slate-300
+                                    placeholder:text-slate-200
                                     focus:outline-none"
                              placeholder="Search by name!"
                              type="text"
                              bind:value={userSearchInput}>
-                      <a class="flex h-fit mt-[1px] dbr" href="#/pokemon/search/{userSearchInput}">
-                        <button class="text-xs px-2 {userSearchInput ? 'block' : 'hidden'}" type="submit">
+                      <a class="flex h-fit dbr" href="#/pokemon/search/{userSearchInput}">
+                        <button class="text-xs px-2
+                                       {userSearchInput ? 'block' : 'hidden'}"
+                                type="submit"
+                                on:mouseenter={setMouseOverSearch}
+                                on:mouseleave={setMouseOverSearch}
+                        >
                           Search!
                         </button>
                       </a>
@@ -243,6 +271,8 @@
     border-slate-700
     border-2
     rounded-sm
+    pt-[1px]
+    pr-[1px]
     hover:border-white
     hover:text-white
     duration-300

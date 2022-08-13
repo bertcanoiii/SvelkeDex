@@ -1,6 +1,6 @@
 <script>
-  import {onMount} from "svelte";
-  import {fly} from 'svelte/transition';
+  import {onMount, afterUpdate} from "svelte";
+  import {fly, fade} from 'svelte/transition';
   import {
     currentPokemon,
     pokeApiData,
@@ -12,6 +12,7 @@
     pokemonAbilities,
     pokemonMoves
   } from "../store.js";
+  import officialArtwork from "../official-artwork.js";
   
   export let pokeParamId;
   
@@ -40,7 +41,8 @@
         <div class="flex flex-col justify-center items-center dbr">
           <div class="group relative
                       flex justify-center items-center pt-3">
-            <div class="absolute -z-10 dbr
+            {#if officialArtwork.includes(`${$pokemonId}.png`)}
+              <div class="absolute -z-10 dbr
                         bg-blue-400/90 border-blue-300 border rounded-full
                         drop-shadow-lg
                         flex justify-center
@@ -52,19 +54,32 @@
                         group-hover:scale-90
                         transition-all
                         duration-500"
-                 in:fly={{x: -50, delay: 600}}>
-            </div>
-            <img class="flex dbr
+                   in:fly={{x: -50, delay: 600}}>
+              </div>
+              <img class="flex dbr
+                            w-8/12
+                            sm:w-2/3
+                            drop-shadow-lg
+                            group-hover:scale-110
+                            group-hover:rotate-6
+                            duration-200 text-center"
+                   src="images/official-artwork/{$pokemonId}.png"
+                   alt="no pic of this pokemon exists yet!"
+                   in:fly={{x: -50, delay: 800}}
+              >
+            {:else}
+              <img class="flex rounded-full dbr
                           w-8/12
                           sm:w-2/3
                           drop-shadow-lg
                           group-hover:scale-110
-                          group-hover:rotate-6
                           duration-200 text-center"
-                 src="images/official-artwork/{$pokemonId}.png"
-                 alt="no pic of this pokemon exists yet!"
-                 in:fly={{x: -50, delay: 800}}
-            >
+                   src="images/pikachu_crying.gif"
+                   alt="no pic of this pokemon exists yet!"
+                   in:fade={{delay: 500}}
+              >
+              <p class="absolute top-5" in:fade={{delay: 500}}>no pic exists</p>
+            {/if}
           </div>
         </div>
         <!--                Global Stat Container-->
