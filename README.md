@@ -19,6 +19,7 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
   - Nav-bar design, at least at this stage in my learning journey, is quite tricky. I may just be doing it suboptimally. 
   - Prior to switching to a top-bar, I was using a nav-bar that stayed on the left side of the screen, on default-tailwind `sm:` sized screens or larger. I attempted to implement a show/hide button, but if the navbar was hidden, and the show menu button was used, an issue with side scrolling occurred which caused the overall page layout to be altered in a way that I didn't want. To get rid of that issue I switched to a top-bar.
     - I think in future projects I will attempt other sidebar implementations. For this one the top-bar approach works fine. 
+- There were a bunch of other things as well, but these things stood out the most.
 
 **Svelte** 
 
@@ -31,8 +32,9 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
   - Pagination on other websites seems to navigate to another route endpoint, example pokemon/page/1.
   - The pagination I implemented keeps the user on the same page.
   - I am not sure if my implementation is ideal. It seems to work fine. lol
+  - Update 08/10/2022 I was able to add some functionality to add the first page/last page which updated depending on display count. 
 - Asset checking:
-  - Not sure if this was the best way to accomplish this, but I wanted to check if a pic of a Pokémon existed. The reason for this is because, before doing so if a pic didn't exist, nothing would fill the poke-pic space, which caused the sizing of the cards to be affected in a less than ideal way. The cards would be smaller. So I created an array of strings, based on all the files currently in the images/main_sprites directory. In the for loop, I implemented an if condition that checked whether the pic existed in the array based on the Pokémon’s ID. If it did exist, I passed the path to the pic to the component. If it didn't exist, I passed the pat to a pic containing a question mark to the component.
+  - Not sure if this was the best way to accomplish this, but I wanted to check if a pic of a Pokémon existed. The reason for this is because, before doing so if a pic didn't exist, nothing would fill the poke-pic space, which caused the sizing of the cards to be affected in a less than ideal way. The cards would be smaller. So I created an array of strings, based on all the files currently in the images/main_sprites directory. In the for loop, I implemented an if condition that checked whether the pic existed in the array based on the Pokémon’s ID. If it did exist, I passed the path to the pic to the component. If it didn't exist, I passed the path to a pic containing a question mark to the component.
 - Search Bar: First attempt didn't work on mobile. All I did was add an input field, bind that to a variable, which updates a store variable, and then check to see if the user-searched-text
   - ```sveltehtml
     let userSearchInput = "";
@@ -75,8 +77,8 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
   - `transition:fade`: This is an easy way to get things to fade in, easy +1 fancy points.
 
 
-- Stores: I was able to figure out how to use Svelte Stores. I stored all the data related to each pokemon upon api call. The only thing that didn't work was .types. For some reason Svelte didn't like this particular array being set as a derived store for whatever reason. So instead of doing 
-  ```sveltehtml
+- Stores: I was able to figure out how to use Svelte Stores. I stored all the data related to each pokemon upon api call. The only thing that didn't work was .types. For some reason Svelte didn't like this particular array being set as a derived store for whatever reason. So instead of doing:
+  ```javascript 
   export const pokemonTypes = derived(pokeApiData, $pokeApiData => {
     if ($pokeApiData.types) {
         return $pokeApiData.types
@@ -84,8 +86,9 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
     return [];
   })
   ```
-  I instead used a writeable store for pokemonTypes and set the store within the onMount/getPokemon functions:
-  ```sveltehtml
+  - I used a writeable store for pokemonTypes and set the store within the onMount/getPokemon functions:
+
+  ```javascript
   onMount(async () => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
           .then(response => response.json())
@@ -98,10 +101,10 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
     });
   });
   
+  //And in store.js: 
   export const pokemonTypes = writable([]);
-  
   ```
-  I may have done something incorrectly using the derived store method, but this method works fine.
+  - I may have done something incorrectly using the derived store method, but this method works fine.
 
 
 **Deploying to Netlify**
