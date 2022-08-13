@@ -53,9 +53,11 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
     {/each}
     ```
     This didn't seem to work on mobile devices, still working on updating this as of 08/11/2022.
+  - Update 08/12/2022 - After finally asking for help, after trying a ton of different ways to refactor the search, I was advised to use the chrome mobile debugger. I was able to determine that the reason why the search bar wasn't working on mobile is because a user's first letter is usually capitalized, and my search didn't make the search text lowercase. 🤦 I added .toLowerCase() and the search bar now works. 🤦
   
+
 - Loading: I haven't figured out how to not show an image until it is completely loaded. 08/11/2022. 
-  
+  - I wasn't able to figure this out, however this is just a practice project. The images load fine, so I will ignore my ocd.  
 
 
 - Transitions: 
@@ -71,6 +73,36 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
      ```
 
   - `transition:fade`: This is an easy way to get things to fade in, easy +1 fancy points.
+
+
+- Stores: I was able to figure out how to use Svelte Stores. I stored all the data related to each pokemon upon api call. The only thing that didn't work was .types. For some reason Svelte didn't like this particular array being set as a derived store for whatever reason. So instead of doing 
+  ```sveltehtml
+  export const pokemonTypes = derived(pokeApiData, $pokeApiData => {
+    if ($pokeApiData.types) {
+        return $pokeApiData.types
+    }
+    return [];
+  })
+  ```
+  I instead used a writeable store for pokemonTypes and set the store within the onMount/getPokemon functions:
+  ```sveltehtml
+  onMount(async () => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeParamId}`)
+          .then(response => response.json())
+          .then(data => {
+            pokeApiData.set(data);
+            pokemonTypes.set(data.types) 
+          }).catch(error => {
+      console.log(error);
+      return [];
+    });
+  });
+  
+  export const pokemonTypes = writable([]);
+  
+  ```
+  I may have done something incorrectly using the derived store method, but this method works fine.
+
 
 **Deploying to Netlify**
 - I learned how to deploy to Netlify.
