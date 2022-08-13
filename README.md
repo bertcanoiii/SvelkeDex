@@ -113,3 +113,4 @@ This webapp was made in order to practice Svelte, tailwind, and other web develo
   - Build command: npm run build
   - Publish directory: dist
 
+**I consider this project to be complete as of 08/13/2022! Wooo!**
