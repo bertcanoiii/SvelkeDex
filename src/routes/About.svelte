@@ -27,7 +27,8 @@
                 <li>Making this site helped me escape tutorial hell.</li>
                 <li>If you are reading this and are currently in tutorial hell, you can escape too!</li>
                 <img class="rounded-xl max-w-11/12 hover:scale-105 duration-200" src="images/dev_time.png" alt="pic of development time">
-                <li>I spent about 76 hours making Svelkedex and learned a lot on the way</li>
+                <li>I spent about 78 hours making Svelkedex and learned a lot on the way</li>
+                <li>Having spend that time, with what I've learned I think I would be able to rebuild this in less than half that time.</li>
                 <li>
                   If you're interested, feel free to check out the code on <a class="underline hover:text-white duration-200" href="https://github.com/bertcanoiii/SvelkeDex">github!</a>
                 </li>
