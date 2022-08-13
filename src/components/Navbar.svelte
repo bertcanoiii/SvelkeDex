@@ -25,7 +25,6 @@
         text-lg
         text-slate-700
         font-bold
-        underline
         hover:text-white
         duration-200
     }

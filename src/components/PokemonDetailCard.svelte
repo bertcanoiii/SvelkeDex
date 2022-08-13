@@ -60,9 +60,9 @@
                           drop-shadow-lg
                           group-hover:scale-110
                           group-hover:rotate-6
-                          duration-200"
+                          duration-200 text-center"
                  src="images/official-artwork/{$pokemonId}.png"
-                 alt="pic of pokemon"
+                 alt="no pic of this pokemon exists yet!"
                  in:fly={{x: -50, delay: 800}}
             >
           </div>

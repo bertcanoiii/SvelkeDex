@@ -13,6 +13,12 @@
     drop-shadow-lg
 }
 
+/*.dbr {*/
+/*    @apply*/
+/*    border*/
+/*    border-red-500*/
+/*}*/
+
 .navButton {
     @apply
     flex
@@ -28,32 +34,6 @@
     sm:py-0
     hover:text-white
     duration-200
-}
-
-/*.devBorder {*/
-/*    @apply*/
-/*        border-2*/
-/*        border-black*/
-/*}*/
-
-/*.routerBorder {*/
-/*    @apply*/
-/*    border*/
-/*    border-orange-500*/
-/*}*/
-
-/*.dbr {*/
-/*    @apply*/
-/*    border*/
-/*    border-red-600*/
-/*}*/
-
-.dbd {
-    @apply
-    absolute
-    top-0
-    left-0
-    z-50
 }
 
 .routeContainer {

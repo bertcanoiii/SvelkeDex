@@ -1,11 +1,21 @@
 <script>
-  import { fade } from 'svelte/transition';
+  import { fade, slide } from 'svelte/transition';
 </script>
 
 <div class="relative flex flex-col min-h-screen items-center max-w-5xl mx-auto devBorder">
   <div class="flex flex-col items-center justify-center h-screen w-screen">
-    <div class="text-6xl text-center text-slate-700" in:fade={{delay: 900}}>
-      <h1>Welcome to SvelkeDex!</h1>
+    <div class="flex flex-col text-6xl text-center text-slate-700" in:fade={{delay: 900}}>
+      <h1>Welcome to</h1>
+      <div class="flex flex-row items-center"
+           in:slide={{delay: 950, duration: 500}}
+      >
+        <a href="https://svelte.dev/">
+          <img class="h-20 opacity-80 hover:scale-125 hover:opacity-100 duration-200"
+               src="images/svelte-icon.png"
+               alt="">
+        </a>velkedex!
+      </div>
+      <p class="text-xs">A web app made with svelte!</p>
     </div>
     <div class="flex flex-col my-5 px-2 sm:px-0 overflow-y-auto homeText" in:fade={{delay: 1000}}>
       <div class="flex flex-col space-y-5 sm:flex-row sm:space-x-5 sm:space-y-0  devBorder"
@@ -38,7 +48,7 @@
     hover:border-8
     transition-all
     ease-linear
-    duration-500
+    duration-300
   }
   
   .homeText {

@@ -19,7 +19,6 @@
   $: pokeRangeHigh = $searchPageNumberStore * $displayCountDataStore;
   $: pokeRangeLow = pokeRangeHigh - $displayCountDataStore;
 
-  //search info
   let userSearchInput = "";
   $: pokeSearchStore.set(userSearchInput);
   
@@ -74,14 +73,6 @@
   }
   
 </script>
-
-<!--debug-->
-<!--<div class="dbd text-xs">-->
-<!--  <p>newPage: {test}</p>-->
-<!--  <p>$newPageStore {$newPageStore}</p>-->
-<!--  <p>$startNumberStore {$searchPageStartNumberStore}</p>-->
-<!--  <p>totalPages {totalPages}</p>-->
-<!--</div>-->
 
 <!--Main Container-->
 <div class="">

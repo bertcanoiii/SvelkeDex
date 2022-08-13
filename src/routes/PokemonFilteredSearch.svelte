@@ -5,7 +5,7 @@
   
   export let params = {};
   let searchParams = params.search;
-  let pokeSearchArray = pokemonData.filter(pokemon => pokemon.identifier.includes(searchParams))
+  let pokeSearchArray = pokemonData.filter(pokemon => pokemon.identifier.includes(searchParams.toLowerCase()))
   
 </script>
 

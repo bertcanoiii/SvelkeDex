@@ -19,13 +19,14 @@
   <div class="flex flex-col max-w-5xl mx-auto">
     <div class="flex flex-col justify-between">
       <div class="flex flex-row items-center justify-between
-                  min-w-screen px-10 devBorder">
-        <div class="flex flex-row min-w-screen space-x-10 items-center">
+                  min-w-screen px-2 sm:px-4 md:px-10 devBorder">
+        <div class="flex flex-row min-w-screen space-x-10 dbr">
           <a class="navBarLink" href="#/welcome">Home</a>
           <a class="navBarLink" href="#/pokemon">Pokemon</a>
           <a class="navBarLink" href="#/about">About</a>
+          <a class="navBarLink" href="https://github.com/bertcanoiii/SvelkeDex">Github</a>
         </div>
-        <a href="/#/lost">
+        <a class="" href="/#/lost">
           <img class="devBorder h-8 w-8 hover:rotate-45 hover:translate-y-1 duration-200"
                src="images/logo.png"
                alt="logo"
@@ -39,10 +40,9 @@
 <style>
   .navBarLink {
     @apply
-    text-base
+    text-sm
     text-slate-700
     font-bold
-    underline
     hover:text-white
     duration-200
   }

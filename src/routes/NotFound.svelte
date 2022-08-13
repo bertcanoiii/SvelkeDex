@@ -10,7 +10,6 @@
                 background-size: cover;"
        in:fade={{delay: 200}}
   >
-    <!--        <h1 class="absolute top-5 left-10 text-4xl text-slate-200 text-center font-bold backdrop-blur-md rounded-2xl pt-1 px-5">Lost?</h1>-->
     <a class="lostLink" in:fade={{delay: 1000}} href="/#/welcome">
       <div class="pt-24">
         <p>Lost?</p>

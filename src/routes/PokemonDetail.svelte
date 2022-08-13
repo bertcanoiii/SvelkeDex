@@ -16,7 +16,6 @@
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeNum}`)
           .then(response => response.json())
           .then(data => {
-            // console.log("inside PokemonDetailCard.svelte");
             pokeApiData.set(data);
             pokemonTypes.set(data.types);
           }).catch(error => {
@@ -27,11 +26,6 @@
   };
 
 </script>
-
-<!--debug lines-->
-<!--<div class="dbd">-->
-<!--    <h1>pokeID {$currentPokemon}</h1>-->
-<!--</div>-->
 
 <!--Main Container-->
 <div class="max-w-5xl mx-auto flex justify-center text-slate-800">
